@@ -4,10 +4,82 @@
 
 .nav-bar {
 	display: flex;
+	background: #30d6d9;
+  	width: 100%;
+  	margin-bottom: 10px;
+  	position: fixed;
+  	top: 0px;
 }
 
-.nav-bar > div {
-	padding: 10px;
+.nav-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  display: block;
+  zoom: 1;
+}
+.nav-bar ul li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-bar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  padding: 15px 25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  position: relative;
+  -webkit-transition: color .25s;
+  -moz-transition: color .25s;
+  -ms-transition: color .25s;
+  -o-transition: color .25s;
+  transition: color .25s;
+}
+.nav-bar ul li a:hover {
+  color: #333333;
+}
+.nav-bar ul li a:hover:before {
+  width: 100%;
+}
+.nav-bar ul li a:after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -3px;
+  top: 19px;
+  height: 6px;
+  width: 6px;
+  background: #ffffff;
+  opacity: .5;
+}
+.nav-bar ul li a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: #333333;
+  -webkit-transition: width .25s;
+  -moz-transition: width .25s;
+  -ms-transition: width .25s;
+  -o-transition: width .25s;
+  transition: width .25s;
+}
+.nav-bar ul li:last-child > a:after {
+  display: none;
+}
+.nav-bar ul li.active a {
+  color: #333333;
+}
+.nav-bar ul li.active a:before {
+  width: 100%;
 }
 
 .tab {
@@ -20,4 +92,80 @@
 
 #main-body {
 	display: flex;
+}
+
+.profile-img {
+	width: 500px;
+	height: auto;
+	padding: 20px;
+}
+
+.page {
+	margin-top: 40px;
+	padding: 10px;
+}
+
+.meme-collection {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0 4px;
+}
+.column {
+	flex: 25%;
+	max-width: 25%;
+ 	padding: 0 4px;
+}
+
+.column > img {
+ 	margin-top: 8px;
+ 	vertical-align: middle;
+ 	width: 100%;
+}
+
+.meme-collection-2  ul{
+	display: flex;
+	flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.meme-collection-2 li{
+	height: 30vh;
+  padding: 5px;
+	flex-grow: 1;
+}
+
+.meme-collection-2 li:last-child{
+  flex-grow: 10;
+}
+
+.meme-collection-2 img {
+  max-height: auto;
+  max-width: 300px;
+  object-fit: cover;
+  vertical-align: center;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+h1 {
+	padding: 20px;
+	padding-bottom: 0px;
+}
+body {
+	margin: 0px;
+	height: 10000px;
 }
