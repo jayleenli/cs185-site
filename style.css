@@ -129,18 +129,14 @@
 }
 
 .meme-collection-2 li{
-	height: 30vh;
   padding: 5px;
 	flex-grow: 1;
 }
 
-.meme-collection-2 li:last-child{
-  flex-grow: 10;
-}
 
 .meme-collection-2 img {
   max-height: auto;
-  max-width: 300px;
+  width: 300px;
   object-fit: cover;
   vertical-align: center;
 }
@@ -165,7 +161,7 @@ h1 {
 	padding: 20px;
 	padding-bottom: 0px;
 }
+
 body {
 	margin: 0px;
-	height: 10000px;
 }
