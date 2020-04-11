@@ -1,5 +1,6 @@
-.header {
-
+html *
+{
+   font-family: Trebuchet MS !important;
 }
 
 .nav-bar {
@@ -133,13 +134,139 @@
 	flex-grow: 1;
 }
 
-
 .meme-collection-2 img {
   max-height: auto;
   width: 300px;
   object-fit: cover;
   vertical-align: center;
 }
+
+/*animations page CSS */
+.animations-desc {
+  padding: 20px;
+  padding-bottom: 0px;
+}
+
+.contain_archive {
+  width: 100%;
+}
+.row_nm_videos {
+  overflow-x: scroll;
+  width: 100%;
+}
+.row__inner {
+  -webkit-transition: 450ms transform;
+  transition: 450ms transform;
+  font-size: 0;
+  white-space: nowrap;
+  margin: 140.625px 140px;
+  padding-bottom: 10px;
+}
+.tile {
+  position: relative;
+  display: inline-block;
+  width: 500px;
+  height: 281.25px;
+  margin-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  -webkit-transition: 450ms all;
+  transition: 450ms all;
+  -webkit-transform-origin: center left;
+          transform-origin: center left;
+}
+.tile__img {
+  width: 500px;
+  height: 281.25px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.tile__title {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+}
+.row__inner:hover {
+  -webkit-transform: translate3d(-150px, 0, 0);
+          transform: translate3d(-150px, 0, 0);
+}
+.row__inner:hover .tile {
+  opacity: 0.7;
+}
+.row__inner:hover .tile:hover {
+  -webkit-transform: scale(1.6);
+          transform: scale(1.6);
+  opacity: 1;
+}
+.tile:hover ~ .tile {
+  -webkit-transform: translate3d(400px, 0, 0);
+          transform: translate3d(400px, 0, 0);
+}
+
+.tile_desc{
+  position: absolute;
+  bottom: 10px;  
+  color: #fff;
+  font-size: .610em;
+  font-family: "Crimson Text";
+  margin-left: 10px;
+  font-weight: 100;
+}
+.tile_desc:after {
+    display: block;
+    width: 20px;
+    height: 0;
+    font-weight: 100;
+    border-bottom: 0.160em solid;
+    content: "";
+    color: #fff;
+}
+.tube-btn {
+  position: relative;
+  background: black;
+  color: #00ff44;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0.2em solid #00ff44;
+  padding: 0.5em 1em;
+}
+
+.tube-btn:hover::before {
+  right: 80%;
+}
+.tube-btn:hover::after {
+  left: 80%;
+}
+.tube-btn::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10%;
+    background: #222;
+    height: 0.3em;
+    right: 20%;
+    top: -0.21em;
+    transform: skewX(-45deg);
+    -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+.tube-btn::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10%;
+    background: #222;
+    height: 0.3em;
+    left: 20%;
+    bottom: -0.25em;
+    transform: skewX(45deg);
+    -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
+    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+}
+
+
 
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
