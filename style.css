@@ -175,18 +175,13 @@ html *
   -webkit-transform-origin: center left;
           transform-origin: center left;
 }
-.tile__img {
+.tile__vid {
   width: 500px;
   height: 281.25px;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.tile__title {
-  position: absolute;
-  bottom: 0;
-  padding: 10px;
-}
 .row__inner:hover {
   -webkit-transform: translate3d(-150px, 0, 0);
           transform: translate3d(-150px, 0, 0);
@@ -204,24 +199,6 @@ html *
           transform: translate3d(400px, 0, 0);
 }
 
-.tile_desc{
-  position: absolute;
-  bottom: 10px;  
-  color: #fff;
-  font-size: .610em;
-  font-family: "Crimson Text";
-  margin-left: 10px;
-  font-weight: 100;
-}
-.tile_desc:after {
-    display: block;
-    width: 20px;
-    height: 0;
-    font-weight: 100;
-    border-bottom: 0.160em solid;
-    content: "";
-    color: #fff;
-}
 .tube-btn {
   position: relative;
   background: black;
@@ -264,9 +241,13 @@ html *
     -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
     transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
   }
+
+/* Games Page */
+
+.games-desc {
+  padding: 20px;
+  padding-bottom: 0px;
 }
-
-
 
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
