@@ -3,6 +3,7 @@ html *
    font-family: Trebuchet MS !important;
 }
 
+/* Nav bar styling edited from cssmenumaker */
 .nav-bar {
 	display: flex;
 	background: #30d6d9;
@@ -106,42 +107,34 @@ html *
 	padding: 10px;
 }
 
-.meme-collection {
-	display: flex;
-	flex-wrap: wrap;
-	padding: 0 4px;
+.photo-collection {
+  line-height: 0;
+   
+  -webkit-column-count: 4;
+  -webkit-column-gap: 0px;
+  column-count: 4;
+  column-gap: 0px; 
 }
-.column {
-	flex: 25%;
-	max-width: 25%;
- 	padding: 0 4px;
-}
-
-.column > img {
- 	margin-top: 8px;
- 	vertical-align: middle;
- 	width: 100%;
-}
-
-.meme-collection-2  ul{
+.photo-collection  ul{
 	display: flex;
 	flex-wrap: wrap;
   list-style-type: none;
 }
 
-.meme-collection-2 li{
-  padding: 5px;
-	flex-grow: 1;
+.photo-collection li{
+  height: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
 }
 
-.meme-collection-2 img {
-  max-height: auto;
+.photo-collection img {
+  max-height: 100%;
   width: 300px;
-  object-fit: cover;
-  vertical-align: center;
 }
 
-/*animations page CSS */
+/* animations page CSS 
+  Video slider CSS edited from https://codepen.io/netk/pen/ZpERkb */
 .animations-desc {
   padding: 20px;
   padding-bottom: 0px;
@@ -209,39 +202,6 @@ html *
   padding: 0.5em 1em;
 }
 
-.tube-btn:hover::before {
-  right: 80%;
-}
-.tube-btn:hover::after {
-  left: 80%;
-}
-.tube-btn::before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 10%;
-    background: #222;
-    height: 0.3em;
-    right: 20%;
-    top: -0.21em;
-    transform: skewX(-45deg);
-    -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
-    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
-  }
-.tube-btn::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 10%;
-    background: #222;
-    height: 0.3em;
-    left: 20%;
-    bottom: -0.25em;
-    transform: skewX(45deg);
-    -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
-    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
-  }
-
 /* Games Page */
 
 .games-desc {
@@ -251,9 +211,13 @@ html *
 
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
-  .column {
-    flex: 50%;
-    max-width: 50%;
+  .photo-collection {
+    line-height: 0;
+     flex: 50%;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 0px;
+    column-count: 2;
+    column-gap: 0px; 
   }
 }
 
