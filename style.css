@@ -109,28 +109,32 @@ html *
 
 .photo-collection {
   line-height: 0;
-   
+  margin: auto;
+  padding: 4px;
   -webkit-column-count: 4;
   -webkit-column-gap: 0px;
   column-count: 4;
   column-gap: 0px; 
+
 }
 .photo-collection  ul{
-	display: flex;
 	flex-wrap: wrap;
   list-style-type: none;
 }
 
-.photo-collection li{
-  height: 100%;
+.photo-collection ul li{
   padding-top: 8px;
   padding-bottom: 8px;
-
+  max-height: 540px;
 }
 
-.photo-collection img {
-  max-height: 100%;
+.photo-collection li img {
+  position: relative;
+  max-height: 540px;
   width: 300px;
+  align-self: center;
+  vertical-align: center;
+  top: 0px;
 }
 
 /* animations page CSS 
