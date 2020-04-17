@@ -213,6 +213,24 @@ html *
   padding-bottom: 0px;
 }
 
+.game-content {
+  padding: 0px 20px;
+  display: block;
+}
+.game-section {
+  width: 100%;
+  display: flex;
+}
+.game-section {
+  width: 100%;
+  display: flex;
+}
+
+.game-img {
+  width: 450px;
+  height: auto;
+}
+
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
   .photo-collection {
