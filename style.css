@@ -144,7 +144,8 @@ html *
 .photo-collection img {
   max-height: 540px;
   width: 300px;
-  display: block;
+  display: relative;
+  margin: auto;
   object-fit: cover;
   cursor: pointer;
 }
@@ -250,6 +251,12 @@ html *
   border-radius: 8px;
   border: 0.2em solid #00ff44;
   padding: 0.5em 1em;
+
+  transition-duration: 0.4s;
+}
+
+.tube-btn:hover {
+  border: 0.2em solid #25cc51
 }
 
 /* Games Page */
