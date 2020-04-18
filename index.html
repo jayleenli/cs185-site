@@ -4,18 +4,20 @@
 	<title>Jayleen's Website</title>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
-<body>
-	<div class="nav-bar">
-			<ul>
-			   <li class='active'><a href='index.html'><span>Home</span></a></li>
-			   <li><a href='memes.html'><span>Memes</span></a></li>
+<script type="text/javascript" src="main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body onload="main()">
+	<div id="nav-bar-div" class="nav-bar">
+			<ul id="nav-bar-list">
+			   <li><a href='index.html'><span>Home</span></a></li>
+			   <li><a href='photos.html'><span>Photos</span></a></li>
 			   <li><a href='animations.html'><span>Animations</span></a></li>
 			   <li class='last'><a href='games.html'><span>Games</span></a></li>
 			</ul>
 	</div>
 	<div class="page">
 		<div>
-			<h1 class="fadeInUp"> Jayleen's Portfolio </h1> <hr>
+			<h1> Jayleen's Portfolio </h1> <hr>
 		</div>
 		
 		<div id="main-body">
@@ -31,6 +33,9 @@
 				</p>
 			</div>
 		</div>
+	</div>
+	<div>
+		<button onclick="toTop()" id="scroll-to-top" class="top-btn">Back to Top</button>
 	</div>
 
 </body>

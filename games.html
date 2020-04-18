@@ -4,28 +4,73 @@
 	<title>Jayleen's Website</title>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
-<body>
-	<div class="nav-bar">
-			<ul>
+<script type="text/javascript" src="main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body onload="main()">
+	<div id="nav-bar-div" class="nav-bar">
+			<ul id="nav-bar-list">
 			   <li><a href='index.html'><span>Home</span></a></li>
-			   <li><a href='memes.html'><span>Memes</span></a></li>
+			   <li><a href='photos.html'><span>Photos</span></a></li>
 			   <li><a href='animations.html'><span>Animations</span></a></li>
-			   <li class='active' class='last'><a href='games.html'><span>Games</span></a></li>
+			   <li class='last'><a href='games.html'><span>Games</span></a></li>
 			</ul>
 	</div>
 	<div class="page">
 		<div>
-			<h1 class="fadeInUp"> Games </h1> <hr>
+			<h1> Games </h1> <hr>
 		</div>
 		<div class="games-desc">
-				<p>
-					I really like data collection so I did one on myself to calculate the total amount of time I've wasted on games. This was before I knew about webscraping so I entered all these values by hand (oops). So beware this isn't up to date but here's the sheet! <br><br>
-				</p>
-				
+			<p>
+				Top games I've spent a lot of time playing <br><br>
+			</p>
+			<div class="game-content">
+				<div class="game-section">
+					<!--image source: https://store.steampowered.com/app/440/Team_Fortress_2/ -->
+					<div><img class="game-img" src="images/games/tf2.jpg"></div><div class="game-content"><h2>Team Fortress 2</h2><p>Really the first game I invested a lot of time in and made online friends in!</p> <div>Hours: 717.0</div></div> 
+				</div>
+				<hr>
+			</div>
+			<div class="game-content">
+				<div class="game-section">
+					<!-- image source: https://store.steampowered.com/app/444090/Paladins/ -->
+					<div><img class="game-img" src="images/games/paladins.jpg"></div><div class="game-content"><h2>Paladins</h2><p>Overwatch but for poor people.</p> <div>Hours: 107.0</div></div> 
+				</div>
+				<hr>
+			</div>
+			<div class="game-content">
+				<div class="game-section">
+					<!-- image source: https://store.steampowered.com/app/322330/Dont_Starve_Together/ -->
+					<div><img class="game-img" src="images/games/dontstarvetog.jpg"></div><div class="game-content"><h2>Don't Starve Together</h2><p>Don't starve!</p> <div>Hours: 71.0</div></div> 
+				</div>
+				<hr>
+			</div>
+			<div class="game-content">
+				<div class="game-section">
+					<!-- image source: https://www.youtube.com/watch?v=kwoR1TKQF4Y -->
+					<div><img class="game-img" src="images/games/osu.jpg"></div><div class="game-content"><h2>Osu!</h2><p>Additing rhythm game...</p> <div>Hours: 62.0</div></div> 
+				</div>
+				<hr>
+			</div>
+			<div class="game-content">
+				<div class="game-section">
+					<!-- image source: https://store.steampowered.com/app/524220/NieRAutomata/ -->
+					<div><img class="game-img" src="images/games/nier.jpg"></div><div class="game-content"><h2>NieR:Automata</h2><p>My favorite game!</p> <div>Hours: 39.0</div></div> 
+				</div>
+				<hr>
+			</div>
+			<div class="game-content">
+				<div class="game-section">
+					<!-- image source: https://store.steampowered.com/app/291860/Pit_People/ -->
+					<div><img class="game-img" src="images/games/pitpeople.jpg"></div><div class="game-content"><h2>Pit People</h2><p>Been playing this a lot! Love Behemoth games</p> <div>Hours: 21.0</div></div> 
+				</div>
+				<hr>
+			</div>
+
 		</div>
-		<div class="games-sheet" style="padding: 15px;">
-			<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTCzJL2nzMGHEbG9SfkEvoQu3sUexxyi2AzJx6ITMRIicp1jRLeA_9QalyDBt9g9qS5wbRXJheXDTNh/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="600px"></iframe>
-		</div>
+	</div>
+
+	<div>
+		<button onclick="toTop()" id="scroll-to-top" class="top-btn">Back to Top</button>
 	</div>
 
 </body>

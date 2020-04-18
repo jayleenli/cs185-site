@@ -4,89 +4,68 @@
 	<title>Jayleen's Website</title>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
-<body>
-	<div class="nav-bar">
-			<ul>
+<script type="text/javascript" src="main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body onload="main()">
+	<div id="nav-bar-div" class="nav-bar">
+			<ul id="nav-bar-list">
 			   <li><a href='index.html'><span>Home</span></a></li>
-			   <li><a href='memes.html'><span>Memes</span></a></li>
-			   <li class='active'><a href='animations.html'><span>Animations</span></a></li>
+			   <li><a href='photos.html'><span>Photos</span></a></li>
+			   <li><a href='animations.html'><span>Animations</span></a></li>
 			   <li class='last'><a href='games.html'><span>Games</span></a></li>
 			</ul>
 	</div>
 	<div class="page">
 		<div>
-			<h1 class="fadeInUp"> Videos I Animated </h1> <hr>
+			<h1> Videos I Animated </h1> <hr>
 		</div>
 		
 		<div>
 			<div class="animations-desc">
 				<p>
-					I used to make some stupid-humor animations in high school so here's a video gallery of them. Scroll sideways (SHIFT+scroll) to see more! <br><br>
+					I used to make some dumb humor animations in high school so here's a video gallery of them. Scroll sideways (SHIFT+scroll) to see more! <br><br>
 				</p>
 				
 			</div>
 			<center><a href="https://www.youtube.com/user/tjtheturtleisawesome" target="_blank" class="tube-btn">YouTube Channel: tjtheturtleisawesome</a><center>
+			
+			<!-- Video slider CSS edited from https://codepen.io/netk/pen/ZpERkb -->
 			<div class="contain_archive">
 				<div class="row_nm_videos">
-				<div class="row__inner">
-				<div class="tile">
-				<div class="tile__media">
-
-				<iframe class="tile__vid" src="https://www.youtube.com/embed/mxUWu3R1gfY"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
-				  </div>
-				  </div>
-				<div class="tile"><div class="tile__media">
-								  <iframe class="tile__vid" src="https://www.youtube.com/embed/-LTjw3PzcbM"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
-								  </div>
-								</div>
-				<div class="tile">
-				<div class="tile__media">
-				          <iframe class="tile__vid" src="https://www.youtube.com/embed/OSUInLwSLZk"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
+					<div class="row__inner">
+						<div class="tile">
+							<iframe class="tile__vid" src="https://www.youtube.com/embed/mxUWu3R1gfY" width="400" height="300" frameborder="0" allowfullscreen></iframe>
+				  		</div>
+						<div class="tile">
+							<iframe class="tile__vid" src="https://www.youtube.com/embed/-LTjw3PzcbM" width="400" height="300" frameborder="0" allowfullscreen></iframe>
+						</div>
+						<div class="tile">
+				            <iframe class="tile__vid" src="https://www.youtube.com/embed/OSUInLwSLZk" width="400" height="300" frameborder="0" allowfullscreen></iframe>
 				        </div>
-				      </div>
-				      <div class="tile">
-				        <div class="tile__media">
-				          <iframe class="tile__vid" src="https://www.youtube.com/embed/NDjoVprETPU"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
+				      	<div class="tile"> 
+				      		<iframe class="tile__vid" src="https://www.youtube.com/embed/NDjoVprETPU" width="400" height="300" frameborder="0" allowfullscreen></iframe>
 				        </div>
-				      </div>
-
-				      <div class="tile">
-				        <div class="tile__media">
-				          <iframe class="tile__vid" src="https://www.youtube.com/embed/WI5rnuVwPzM"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
+				        <div class="tile">
+				            <iframe class="tile__vid" src="https://www.youtube.com/embed/WI5rnuVwPzM" width="400" height="300" frameborder="0" allowfullscreen></iframe>
 				        </div>
-				      </div>
-
-				      <div class="tile">
-				        <div class="tile__media">
-				          <iframe class="tile__vid" src="https://www.youtube.com/embed/SA6i70dufHE"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
+				        <div class="tile">
+				            <iframe class="tile__vid" src="https://www.youtube.com/embed/SA6i70dufHE" width="400" height="300" frameborder="0" allowfullscreen></iframe>
 				        </div>
-				      </div>
-
-				      <div class="tile">
-				        <div class="tile__media">
-				          <iframe class="tile__vid" src="https://www.youtube.com/embed/t54evWM43tE"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
+				        <div class="tile">
+				            <iframe class="tile__vid" src="https://www.youtube.com/embed/t54evWM43tE" width="400" height="300" frameborder="0" allowfullscreen></iframe>
 				        </div>
-				      </div>
-
-				      <div class="tile">
-				        <div class="tile__media">
-				          <iframe class="tile__vid" src="https://www.youtube.com/embed/IWK_Ahh6OSA"
-								   width="400" height="300" frameborder="0" allowfullscreen></iframe>
+						<div class="tile">
+				            <iframe class="tile__vid" src="https://www.youtube.com/embed/IWK_Ahh6OSA" width="400" height="300" frameborder="0" allowfullscreen></iframe>
 				        </div>
-				      </div>
-
 				    </div>
-				  </div>
-
 				</div>
+			</div>
+
 		</div>
+	</div>
+
+	<div>
+		<button onclick="toTop()" id="scroll-to-top" class="top-btn">Back to Top</button>
 	</div>
 
 </body>
