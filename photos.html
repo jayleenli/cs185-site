@@ -22,7 +22,7 @@
 		
 		<div id="main-body">
 			<div id="photo-col" class="photo-collection">
-				<img onclick="expandImage()" src="images/kimbap.jpg">
+				<img onclick="expandImage(this)" src="images/kimbap.jpg">
 				<img src="images/spam_musubi.jpg">
 				<img src="images/seaturtles.jpg">
 				<img src="images/stickers.jpg">
@@ -57,19 +57,46 @@
 				<img src="images/tjturtle.jpg">
 				<img src="images/turtlepenguin.jpg">
 			</div>
+		</div>
 	</div>
 	<div>
 		<button onclick="toTop()" id="scroll-to-top" class="top-btn">Back to Top</button>
 	</div>
+
+	<div id="lightbox-modal" class="photo-modal">
+
+		<!--span class="close" onclick="closeModal()">&times;</span-->
+		<div class="modal-content">
+			<center style="vertical-align: middle;"><img id="modal-img" src="images/spam_musubi.jpg">
+			<div class="caption-container">
+		      <p id="caption">Hello i am a caption</p>
+		    </div></center>
+		</div>
+
+	</div>
+
 	<script type="text/javascript">
 		//For image clicking	
-		function expandImage() {
-			const container = document.querySelector("#photo-col");
+		modal = document.getElementById("lightbox-modal");
+		function expandImage(elem) {
+			const images = document.querySelector("#photo-col").childNodes;
 			//Check that there is some images inside the photo collection
-			if (container.childNodes.length > 0) {
-
+			console.log(elem);
+			if (images.length > 0) {
+				
+				document.getElementById("modal-img").src = elem.src;
+				modal.style.display = "flex";
+				console.log("img");
 			}
 		}
+		modal.addEventListener("click", e=>{
+			console.log(e.target);
+			console.log(e.currentTarget);
+			if(e.target != e.currentTarget)
+				return;
+			modal.style.display = "none";
+		})	
+	
 	</script>
 </body>
 </html>

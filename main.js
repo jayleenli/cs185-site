@@ -32,7 +32,6 @@ function toTop() {
 window.addEventListener("scroll", function(){
 	scrollBtn = document.getElementById("scroll-to-top");
 	scrollPosition = document.body.scrollTop || document.documentElement.scrollTop;
-	console.log("scroll");
 	if (scrollPosition > 500) {
 		scrollBtn.style.display = "block";
 	}
