@@ -3,6 +3,32 @@ html *
    font-family: Trebuchet MS !important;
 }
 
+.top-btn {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+  color: black;
+  border: none;
+
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #afa6ff;
+
+
+  display: none;
+}
+
+.top-btn:hover {
+  background-color: #614fff; 
+  color: white;
+}
+
 /* Nav bar styling edited from cssmenumaker */
 .nav-bar {
 	display: flex;
@@ -237,13 +263,6 @@ html *
 
 /* Responsive */
 @media screen and (max-width: 800px) {
-  .photo-collection {
-    line-height: 0;
-    -webkit-column-count: 2;
-    -webkit-column-gap: 0px;
-    column-count: 2;
-    column-gap: 0px; 
-  }
 }
 
 @media screen and (max-width: 600px) {

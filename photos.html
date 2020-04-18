@@ -4,11 +4,13 @@
 	<title>Jayleen's Website</title>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
-<body>
-	<div class="nav-bar">
-			<ul>
+<script type="text/javascript" src="main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body onload="main()">
+	<div id="nav-bar-div" class="nav-bar">
+			<ul id="nav-bar-list">
 			   <li><a href='index.html'><span>Home</span></a></li>
-			   <li class='active'><a href='photos.html'><span>Photos</span></a></li>
+			   <li><a href='photos.html'><span>Photos</span></a></li>
 			   <li><a href='animations.html'><span>Animations</span></a></li>
 			   <li class='last'><a href='games.html'><span>Games</span></a></li>
 			</ul>
@@ -19,43 +21,55 @@
 		</div>
 		
 		<div id="main-body">
-			<div class="photo-collection">
-			<img src="images/kimbap.jpg">
-			<img src="images/spam_musubi.jpg">
-			<img src="images/seaturtles.jpg">
-			<img src="images/stickers.jpg">
-			<img src="images/stickers2.jpg">
-			<img src="images/soap.jpg">
-			<img src="images/soap2.jpg">
-			<img src="images/dontdead.jpg">
-			<img src="images/viet_coffee.jpg">
-			<img src="images/chicago_airport.jpg">
-			<img src="images/takoyaki.jpg">
-			<img src="images/tattoo.jpg">
-			<img src="images/tattoo2.jpg">
-			<img src="images/tattoo3.jpg">
-			<img src="images/doggo.jpg">
-			<img src="images/cat.jpg">
-			<img src="images/twitchcon.jpg">
-			<img src="images/twitchcon2.jpg">
-			<img src="images/twitchcon3.jpg">
-			<img src="images/turtle_collection.jpg">
-			<img src="images/portal_cube.jpg">
-			<img src="images/ditto.jpg">
-			<img src="images/candle.jpg">
-			<img src="images/kcon.jpg">
-			<img src="images/doggo2.jpg">
-			<img src="images/doggo3.jpg">
-			<img src="images/mac.jpg">
-			<img src="images/banana_slug.jpg">
-			<img src="images/squirtle.jpg">
-			<img src="images/turtles.jpg">
-			<img src="images/avocados.jpg">
-			<img src="images/boba.jpg">
-			<img src="images/tjturtle.jpg">
-			<img src="images/turtlepenguin.jpg">
+			<div id="photo-col" class="photo-collection">
+				<img onclick="expandImage()" src="images/kimbap.jpg">
+				<img src="images/spam_musubi.jpg">
+				<img src="images/seaturtles.jpg">
+				<img src="images/stickers.jpg">
+				<img src="images/stickers2.jpg">
+				<img src="images/soap.jpg">
+				<img src="images/soap2.jpg">
+				<img src="images/dontdead.jpg">
+				<img src="images/viet_coffee.jpg">
+				<img src="images/chicago_airport.jpg">
+				<img src="images/takoyaki.jpg">
+				<img src="images/tattoo.jpg">
+				<img src="images/tattoo2.jpg">
+				<img src="images/tattoo3.jpg">
+				<img src="images/doggo.jpg">
+				<img src="images/cat.jpg">
+				<img src="images/twitchcon.jpg">
+				<img src="images/twitchcon2.jpg">
+				<img src="images/twitchcon3.jpg">
+				<img src="images/turtle_collection.jpg">
+				<img src="images/portal_cube.jpg">
+				<img src="images/ditto.jpg">
+				<img src="images/candle.jpg">
+				<img src="images/kcon.jpg">
+				<img src="images/doggo2.jpg">
+				<img src="images/doggo3.jpg">
+				<img src="images/mac.jpg">
+				<img src="images/banana_slug.jpg">
+				<img src="images/squirtle.jpg">
+				<img src="images/turtles.jpg">
+				<img src="images/avocados.jpg">
+				<img src="images/boba.jpg">
+				<img src="images/tjturtle.jpg">
+				<img src="images/turtlepenguin.jpg">
 			</div>
 	</div>
+	<div>
+		<button onclick="toTop()" id="scroll-to-top" class="top-btn">Back to Top</button>
+	</div>
+	<script type="text/javascript">
+		//For image clicking	
+		function expandImage() {
+			const container = document.querySelector("#photo-col");
+			//Check that there is some images inside the photo collection
+			if (container.childNodes.length > 0) {
 
+			}
+		}
+	</script>
 </body>
 </html>
