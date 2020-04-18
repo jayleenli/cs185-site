@@ -86,8 +86,9 @@
 				
 				document.getElementById("modal-img").src = elem.src;
 				modal.style.display = "flex";
-				imageName = elem.src.replace( /^.*?([^\/]+)\..+?$/, '$1' );
-
+				imageName = elem.src.split('/').pop();
+				imageName = imageName.split('.')[0];
+				console.log(imageName);
 				switch (imageName) {
 					case "kimbap":
 						$('#caption').text('Made some kimbap during quarantine!'); break;
