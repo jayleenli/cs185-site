@@ -31,10 +31,11 @@ html *
 .nav-bar {
 	display: flex;
 	background: #30d6d9;
-  	width: 100%;
-  	margin-bottom: 10px;
-  	position: fixed;
-  	top: 0px;
+  width: 100%;
+  margin-bottom: 10px;
+  position: fixed;
+  top: 0px;
+  z-index: 999;
 }
 
 .nav-bar ul {
@@ -164,7 +165,7 @@ html *
 .modal-content {
   position: relative;
   background-color: white;
-  width: 65vw;
+  width: 60vw;
   height: 85vh;
   justify-content: center;
   align-items: center;
@@ -176,7 +177,8 @@ html *
 
 }
 .photo-modal img {
-  max-width: 80vw; 
+  position: relative;
+  max-width: 100%; 
   max-height: 70vh;
 }
 
