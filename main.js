@@ -1,9 +1,6 @@
 function main () {
 	//determine active page
 	determineActivePage();
-
-	//Scroll-to-top
-
 }    
 
 function determineActivePage() {

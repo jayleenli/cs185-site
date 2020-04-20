@@ -282,14 +282,74 @@ html *
 .game-img {
   width: 450px;
   height: auto;
+  position: relative;
+}
+
+.game-img-section {
+  display: flex;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  height: auto;
 }
 
 /* Responsive */
-@media screen and (max-width: 800px) {
-}
+@media only screen and (max-width: 800px) {
+  #main-body {
+    flex-direction: column;
+    margin: auto;
+    align-content: center;
+    justify-content: center;
+  }
+  #main-body div {
+    margin: auto;
+    padding: 12px;
+  }
+  #main-body div p {
+    padding: 8px;
+  }
+  .profile-img {
+    margin: auto;
+  }
 
-@media screen and (max-width: 600px) {
+  .game-img {
+    width: 250px;
+    height: auto;
+    margin: auto;
+  }
 
+  /* Animations */
+  .tile {
+    display: flex;
+  }
+
+  .row__inner {
+    margin-top: 78px !important;
+    margin: auto;
+  }
+  .tile {
+    -webkit-transform-origin: center;
+          transform-origin: center;
+  }
+
+  .row__inner:hover {
+  -webkit-transform: translate3d(0, 0, 0px);
+          transform: translate3d(0, 0, 0px);
+  }
+  .tile:hover ~ .tile {
+  -webkit-transform: translate3d(0, 20px, 0);
+          transform: translate3d(0, 20px, 0);
+  }
+
+  .row__inner:hover .tile:hover {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    opacity: 1;
+  }
+  .row_nm_videos {
+    overflow-y: hidden;
+    height: 100%;
+  }
 }
 
 h1 {
