@@ -17,7 +17,7 @@ export class App extends Component {
     }
   }
 
-  displayTitle= () => {
+  displayTitle = () => {
     var activePage = this.state.activePage
     if (activePage === 'Home') {
       return "Jayleen's Portfolio"
@@ -35,20 +35,6 @@ export class App extends Component {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
-  
-  /*scrollListenerToTop = () => {
-    var scrollPosition = document.body.scrollTop || document.documentElement.scrollTop;
-    var scrollBtn = document.getElementById("scroll-to-top");
-    console.log("scroll" + scrollPosition)
-    if (scrollBtn) {
-      if (scrollPosition > 500) {
-        scrollBtn.style.display = "block";
-      }
-      else {
-        scrollBtn.style.display = "none";
-      }
-    }
-  }*/
   
   render() {
     const pages = [

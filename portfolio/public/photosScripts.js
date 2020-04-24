@@ -1,7 +1,15 @@
 
 //For image clicking	
-modal = document.getElementById("lightbox-modal");
+
 function expandImage(elem) {
+    modal = document.getElementById("lightbox-modal");
+    modal.addEventListener("click", e=>{
+        //console.log(e.target);
+        //console.log(e.currentTarget);
+        if(e.target != e.currentTarget)
+            return;
+        modal.style.display = "none";
+    })	
     const images = document.querySelector("#photo-col").childNodes;
     //Check that there is some images inside the photo collection
     console.log(elem);
@@ -84,10 +92,3 @@ function expandImage(elem) {
         }
     }
 }
-modal.addEventListener("click", e=>{
-    //console.log(e.target);
-    //console.log(e.currentTarget);
-    if(e.target != e.currentTarget)
-        return;
-    modal.style.display = "none";
-})	
