@@ -10,7 +10,7 @@ export class NavBar extends Component {
         ))
         console.log(renderedPages)
         return (
-            <div id="nav-bar-div" class="nav-bar">
+            <div id="nav-bar-div" className="nav-bar">
 			<ul id="nav-bar-list">
                 {renderedPages}
             </ul>

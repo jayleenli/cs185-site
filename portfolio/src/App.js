@@ -16,6 +16,40 @@ export class App extends Component {
       })
     }
   }
+
+  displayTitle= () => {
+    var activePage = this.state.activePage
+    if (activePage === 'Home') {
+      return "Jayleen's Portfolio"
+    } else if (activePage === 'Photos') {
+        return 'Photo Gallery'
+    } else if (activePage === 'Animations') {
+        return 'Videos I Animated'
+    } else {
+        return 'Games'
+    }
+  }
+
+  toTop = () => {
+    console.log("to top")
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+  
+  /*scrollListenerToTop = () => {
+    var scrollPosition = document.body.scrollTop || document.documentElement.scrollTop;
+    var scrollBtn = document.getElementById("scroll-to-top");
+    console.log("scroll" + scrollPosition)
+    if (scrollBtn) {
+      if (scrollPosition > 500) {
+        scrollBtn.style.display = "block";
+      }
+      else {
+        scrollBtn.style.display = "none";
+      }
+    }
+  }*/
+  
   render() {
     const pages = [
       {
@@ -43,10 +77,13 @@ export class App extends Component {
           changePage={this.changePage} 
           activePage={this.state.activePage}/>
         </div>
-        <div>
+        <div className="page">
+          <div><h1>{this.displayTitle()}</h1><hr/></div>
           <Body activePage={this.state.activePage}/>
         </div>
-        
+        <div>
+		      <button onClick={this.toTop.bind(this)} id="scroll-to-top" className="top-btn">Back to Top</button>
+	      </div>
       </div>
     );
   }

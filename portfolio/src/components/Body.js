@@ -19,7 +19,8 @@ export class Body extends Component {
         }
     }
     render() {
-        return ( this.displayContent() );
+        return ( 
+            this.displayContent() );
     }
 }
 

@@ -1,15 +1,6 @@
 import React, { Component } from 'react'
 
 export default class Page extends Component {
-    addStyling = () => {
-        if (this.props.page.title === this.props.activePage) {
-            return {backgroundColor: 'gray'}
-        }
-        else {
-            return { backgroundColor: 'white'}
-        }
-    }
-
     addActiveClass = () => {
         if (this.props.page.title === this.props.activePage) {
             return 'active'

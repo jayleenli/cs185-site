@@ -58,22 +58,26 @@
 				<img onclick="expandImage(this)" src="images/tjturtle.jpg">
 				<img onclick="expandImage(this)" src="images/turtlepenguin.jpg">
 			</div>
+
+			<div id="lightbox-modal" class="photo-modal">
+
+				<!--span class="close" onclick="closeModal()">&times;</span-->
+				<div class="modal-content">
+					<center style="vertical-align: middle;"><img id="modal-img" src="images/spam_musubi.jpg">
+					<div class="caption-container">
+					  <p id="caption">Hello i am a caption</p>
+					</div></center>
+				</div>
+		
+			</div>
 		</div>
+
+		
+
+
 	</div>
 	<div>
 		<button onclick="toTop()" id="scroll-to-top" class="top-btn">Back to Top</button>
-	</div>
-
-	<div id="lightbox-modal" class="photo-modal">
-
-		<!--span class="close" onclick="closeModal()">&times;</span-->
-		<div class="modal-content">
-			<center style="vertical-align: middle;"><img id="modal-img" src="images/spam_musubi.jpg">
-			<div class="caption-container">
-		      <p id="caption">Hello i am a caption</p>
-		    </div></center>
-		</div>
-
 	</div>
 
 	<script type="text/javascript">
