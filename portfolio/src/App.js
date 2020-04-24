@@ -37,13 +37,13 @@ export class App extends Component {
     ];
 
     return (
-      <div className="body">
+      <div>
         <div className="nav-bar">
           <NavBar pages={pages} 
           changePage={this.changePage} 
           activePage={this.state.activePage}/>
         </div>
-        <div className="main-body">
+        <div>
           <Body activePage={this.state.activePage}/>
         </div>
         

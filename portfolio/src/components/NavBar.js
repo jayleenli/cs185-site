@@ -5,9 +5,16 @@ export class NavBar extends Component {
     render() {
         /* how to do a console log in jsx: { console.log(this.props)} */
         //console.log(this.props)
-        return this.props.pages.map((page) => (
+        const renderedPages = this.props.pages.map((page) => (
             <Page page={page} changePage={this.props.changePage} activePage={this.props.activePage}/>
-        ));
+        ))
+        console.log(renderedPages)
+        return (
+            <div id="nav-bar-div" class="nav-bar">
+			<ul id="nav-bar-list">
+                {renderedPages}
+            </ul>
+	        </div>);
     }
 }
 
