@@ -6,13 +6,13 @@ import Games from './Games';
 
 export class Body extends Component {
     displayContent = () => {
-        var activePage = this.props.activePage
-        //console.log(activePage)
-        if (activePage === 'Home') {
+        var activeTab = this.props.activeTab
+        //console.log(activeTab)
+        if (activeTab === 'Home') {
             return <Home/>
-        } else if (activePage === 'Photos') {
+        } else if (activeTab === 'Photos') {
             return <Photos/>
-        } else if (activePage === 'Animations') {
+        } else if (activeTab === 'Animations') {
             return <Animations/>
         } else {
             return <Games/>

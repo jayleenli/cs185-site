@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css';
-import NavBar from './components/NavBar';
+import TabList from './components/TabList';
 import Body from './components/Body';
 
 export class App extends Component {
@@ -8,22 +8,22 @@ export class App extends Component {
   constructor() {
     super();
     this.state = {
-      activePage: 'Home'
+      activeTab: 'Home'
     }
     this.changePage = (title) => {
       this.setState ({
-        activePage: title
+        activeTab: title
       })
     }
   }
 
   displayTitle = () => {
-    var activePage = this.state.activePage
-    if (activePage === 'Home') {
+    var activeTab = this.state.activeTab
+    if (activeTab === 'Home') {
       return "Jayleen's Portfolio"
-    } else if (activePage === 'Photos') {
+    } else if (activeTab === 'Photos') {
         return 'Photo Gallery'
-    } else if (activePage === 'Animations') {
+    } else if (activeTab === 'Animations') {
         return 'Videos I Animated'
     } else {
         return 'Games'
@@ -58,13 +58,13 @@ export class App extends Component {
     return (
       <div>
         <div className="nav-bar">
-          <NavBar pages={pages} 
+          <TabList pages={pages} 
           changePage={this.changePage} 
-          activePage={this.state.activePage}/>
+          activeTab={this.state.activeTab}/>
         </div>
         <div className="page">
           <div><h1>{this.displayTitle()}</h1><hr/></div>
-          <Body activePage={this.state.activePage}/>
+          <Body activeTab={this.state.activeTab}/>
         </div>
         <div>
 		      <button onClick={this.toTop.bind(this)} id="scroll-to-top" className="top-btn">Back to Top</button>

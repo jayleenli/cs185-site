@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 export default class Page extends Component {
     addActiveClass = () => {
-        if (this.props.page.title === this.props.activePage) {
+        if (this.props.page.title === this.props.activeTab) {
             return 'active'
         }
     }
