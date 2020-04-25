@@ -1,6 +1,6 @@
+/* eslint-disable */ 
 import React, { Component } from 'react'
 import images from './Images'
-//import kimbap from '../images/kimbap.jpg';
 
 export default class LightBoxModal extends Component {
     makeVisible = () => {
@@ -17,7 +17,7 @@ export default class LightBoxModal extends Component {
             modal.addEventListener("click", e=>{
                 //console.log(e.target);
                 //console.log(e.currentTarget);
-                if(e.target != e.currentTarget)
+                if(e.target !== e.currentTarget)
                     return;
                 modal.style.display = "none";
             })
@@ -45,7 +45,7 @@ export default class LightBoxModal extends Component {
         return (
             <div id="lightbox-modal" className="photo-modal">
                 <div className="modal-content">
-                    <center style={{verticalAlign: 'middle'}}><img id="modal-img" src={thisImageSrc}/>
+                    <center style={{verticalAlign: 'middle'}}><img id="modal-img" src={thisImageSrc} alt="lightbox photo"/>
                     <div className="caption-container">
         <p id="caption">{thisImageDesc}</p>
                     </div></center>
