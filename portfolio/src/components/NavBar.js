@@ -8,7 +8,6 @@ export class NavBar extends Component {
         const renderedPages = this.props.pages.map((page) => (
             <Page page={page} changePage={this.props.changePage} activePage={this.props.activePage}/>
         ))
-        console.log(renderedPages)
         return (
             <div id="nav-bar-div" className="nav-bar">
 			<ul id="nav-bar-list">

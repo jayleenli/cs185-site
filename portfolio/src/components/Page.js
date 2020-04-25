@@ -13,10 +13,6 @@ export default class Page extends Component {
 
         return (
             <li onClick={this.props.changePage.bind(this, this.props.page.title)} className={this.addActiveClass()}><a><span>{pageTitle}</span></a></li>
-            /*<div className='tab' style={this.addStyling()}
-            onClick={this.props.changePage.bind(this, this.props.page.title)}>
-                <h2>{this.props.page.title}</h2>
-            </div>*/
         )
     }
 }

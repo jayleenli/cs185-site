@@ -5,7 +5,7 @@ export default class Home extends Component {
         return (
             <div id="main-body">
 			<div>
-				<img src="images/profile.jpg" className="profile-img"/>
+				<img src="../images/profile.jpg" className="profile-img"/>
 			</div>
 			<div>
 				<p>
