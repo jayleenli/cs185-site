@@ -36,6 +36,7 @@ html *
   position: fixed;
   top: 0px;
   z-index: 999;
+  cursor: pointer;
 }
 
 .nav-bar ul {
