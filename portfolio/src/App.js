@@ -2,17 +2,49 @@ import React, { Component } from 'react'
 import './App.css';
 import TabList from './components/TabList';
 import Body from './components/Body';
+import config from './config';
+const firebase = require('firebase')
 
 export class App extends Component {
   //Add a state
   constructor() {
     super();
     this.state = {
-      activeTab: 'Home'
+      activeTab: 'Home',
+      firebaseData: {},
+      shouldUpdate: false
     }
     this.changePage = (title) => {
       this.setState ({
         activeTab: title
+      })
+    }
+  }
+
+  componentDidMount() {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config)
+    } 
+    //load data on first load
+    let ref = firebase.database().ref('guestBookData')
+    ref.on('value', snapshot => {
+      const data = snapshot.val()
+      this.setState({firebaseData: data})
+      console.log(data)
+    })
+    
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot){
+    //load data every render if changes
+    //only call set state here if it is wrapped in a condition
+    //if you initialize this.state.shouldUpdate and have not changed it yet then this will not run
+    if(this.state.shouldUpdate !== prevState.shouldUpdate){
+      let ref = firebase.ref('guestBookData')
+      ref.on('value', snapshot => {
+        const data = snapshot.val()
+        this.setState({firebaseData: data})
+        console.log(data)
       })
     }
   }
