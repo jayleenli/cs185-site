@@ -12,7 +12,7 @@ export default class Message extends Component {
         const msgName = this.props.msgName;
         var initialsArr = msgName.split(" ");
         var initials;
-        if (initialsArr.length == 1) {
+        if (initialsArr.length === 1) {
             initials = initialsArr[0].charAt(0).toUpperCase();
         }
         else {
@@ -27,7 +27,7 @@ export default class Message extends Component {
         //console.log(avatarColor);
 
         return (
-            <div className="msg">
+            <div className="msg animated bounceIn">
                     <div className="msg-left-div"><div className="msg-avatar" style={{backgroundColor: avatarColor}}>{initials}</div></div>
                     <div className="msg-right-div">
                         <span className="msg-date-time">{msgDateTime}</span><br/>

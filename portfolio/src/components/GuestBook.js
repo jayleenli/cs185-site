@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import config from '../config';
 import Message from './Message';
 import GuestBookForm from './GuestBookForm';
+import 'animate.css/animate.css'
 const firebase = require('firebase')
 
 export default class GuestBook extends Component {
@@ -30,7 +31,6 @@ export default class GuestBook extends Component {
     
 
     render() {
-        const test  = ["hi", "hello", "yeet"]
         const data = this.state.firebaseData;
         console.log("re render" + data);
 
@@ -47,7 +47,7 @@ export default class GuestBook extends Component {
 
         return (
             <div id="main-body">
-                <div className="contact-form">
+                <div className="contact-form animated fadeInLeft">
                     <GuestBookForm/>
                 </div>
                 <div className="msg-box">
