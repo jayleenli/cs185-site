@@ -4,9 +4,10 @@ export default class Message extends Component {
     render() {
         var msgDateTime = new Date(this.props.msgDateTime);
         msgDateTime = msgDateTime.toString();
-        //var sfd = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        //sfd.format(new Date(msgDateTime));
-        //var msgDateTime = sfd
+        var msgDateTimeArr = msgDateTime.split(" ");
+        //we only want date time and timezone displayed
+        msgDateTime = msgDateTimeArr[1] + " " + msgDateTimeArr[2] + " " 
+        + msgDateTimeArr[3] + " " + msgDateTimeArr[4] + " " + msgDateTimeArr[5];
 
         const msgName = this.props.msgName;
         var initialsArr = msgName.split(" ");
@@ -21,9 +22,13 @@ export default class Message extends Component {
         const msgDesc = this.props.msgDesc;
         const msgText = this.props.msgText;
 
+        //random color for avatar
+        const avatarColor = this.props.avatarColor;
+        console.log(avatarColor);
+
         return (
             <div className="msg">
-                    <div className="msg-left-div"><div className="msg-avatar">{initials}</div></div>
+                    <div className="msg-left-div"><div className="msg-avatar" style={{backgroundColor: avatarColor}}>{initials}</div></div>
                     <div className="msg-right-div">
                         <span className="msg-date-time">{msgDateTime}</span><br/>
                         <span className="msg-name">{msgName}</span>

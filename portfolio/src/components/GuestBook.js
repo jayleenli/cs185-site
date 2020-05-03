@@ -54,7 +54,7 @@ export default class GuestBook extends Component {
         });
 
         const renderedMsgs = msgArr.map((msg) => (
-            <Message msgDateTime={msg.datetime} msgName={msg.name} msgDesc={msg.desc} msgText={msg.message}></Message>
+            <Message avatarColor={'#'+Math.floor(Math.random()*16777215).toString(16)} msgDateTime={msg.datetime} msgName={msg.name} msgDesc={msg.desc} msgText={msg.message}></Message>
         ));
 
         /*
