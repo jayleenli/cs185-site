@@ -28,20 +28,6 @@ export default class GuestBook extends Component {
         })
     }
     
-    /*componentDidUpdate(prevProps, prevState, snapshot){
-        //load data every render if changes
-        //only call set state here if it is wrapped in a condition
-        //if you initialize this.state.shouldUpdate and have not changed it yet then this will not run
-        if(this.state.shouldUpdate !== prevState.shouldUpdate){
-            let ref = firebase.ref('guestBookData')
-            ref.on('value', snapshot => {
-            const data = snapshot.val()
-            this.setState({firebaseData: data})
-            console.log("update??" + data)
-            })
-       }
-    }*/
-    
 
     render() {
         const test  = ["hi", "hello", "yeet"]
@@ -50,19 +36,15 @@ export default class GuestBook extends Component {
 
         var msgArr = [];
         Object.keys(data).forEach(function(key) {
-            msgArr.push(data[key]);
+            if (data[key].viewable === "yes") {
+                msgArr.push(data[key]);
+            }
         });
 
         const renderedMsgs = msgArr.map((msg) => (
             <Message avatarColor={'#'+Math.floor(Math.random()*16777215).toString(16)} msgDateTime={msg.datetime} msgName={msg.name} msgDesc={msg.desc} msgText={msg.message}></Message>
         ));
 
-        /*
-        {/*test.map((s, index) => (
-                    <p>
-                        {s}
-                    </p>
-                ))}*/
         return (
             <div id="main-body">
                 <div className="contact-form">

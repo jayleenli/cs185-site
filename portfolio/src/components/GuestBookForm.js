@@ -8,23 +8,61 @@ export default class GuestBookForm extends Component {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-        firebaseData: {}
+            firebaseData: {},
+            formErrorName: null,
+            formErrorMsg: null,
         }
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(event.target);
+
+        //Check for input requirements
         const data = new FormData(event.target);
+
+        console.log("form data")
+        console.log(data);
 
         var formJson = {};
         data.forEach(function(value, key){
             formJson[key] = value;
         });
-        formJson["datetime"] = firebase.database.ServerValue.TIMESTAMP;
 
-        //submit data to firebase
-        firebase.database().ref('guestBookData').push().set(formJson);
+        console.log("form json");
+        console.log(formJson);
+
+        var setError = false
+        if (formJson["name"].length <= 5 || formJson["name"].length >= 20) {
+            this.setState({formErrorName: "Name must be 6-19 characters"})
+            setError = true;
+        }
+        else {
+            this.setState({formErrorName: null})
+        }
+        if (formJson["message"].length <= 15 || formJson["name"].length >= 500) {
+            this.setState({formErrorMsg: "Message must be 16-499 characters"})
+            setError = true;
+        }
+        else {
+            this.setState({formErrorMsg: null})
+        }
+
+        //if no errors raised
+        console.log(" form errors")
+        console.log(this.state.formErrorName)
+        console.log(this.state.formErrorMsg)
+        if (!setError) {
+
+            formJson["datetime"] = firebase.database.ServerValue.TIMESTAMP;
+
+            //submit data to firebase
+            firebase.database().ref('guestBookData').push().set(formJson);
+            alert("Your message was sent!")
+        }
+        else {
+            alert("There are issues with your submission. Please check the red text on the form.")
+        }
+
     }
 
     componentDidMount() {
@@ -38,18 +76,19 @@ export default class GuestBookForm extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <span className="form-title">Leave a Message!</span>
+                <span className="form-error" id="form-error">{this.state.formErrorName}<br/>{this.state.formErrorMsg}</span>
                 
                 <div className="form-input-field">
                     <label className="form-label" for="form-name">Your name:</label><br/>
-                    <input type="text" id="form-name" name="name" placeholder="Enter your name" required/>
+                    <input type="text" id="form-name" name="name" placeholder="Enter your name" maxlength="19" required/>
                 </div>
                 <div className="form-input-field">                   
                     <label className="form-label" for="form-desc">Description (optional):</label><br/>
-                    <input type="text" id="form-desc" name="desc" placeholder="Offer a short description of yourself"/>
+                    <input type="text" id="form-desc" name="desc" placeholder="Offer a short description of yourself" maxlength="99"/>
                 </div> 
                 <div className="form-input-field">
                     <label className="form-label" for="form-message">Message:</label><br/>
-                    <input type="text" id="form-message" name="message" placeholder="Enter your message" required/>
+                    <input type="text" id="form-message" name="message" placeholder="Enter your message" maxlength="499" required/>
                 </div>   
                 <div className="form-input-field">
                     <span className="form-label">Would you like your message to be publicly viewable? </span><br/>
@@ -65,7 +104,7 @@ export default class GuestBookForm extends Component {
                 </div> 
                 <div className="form-input-field">
                     <label className="form-label" for="form-email">Leave your email (optional):</label><br/>
-                    <input type="text" id="form-email" name="email" placeholder="Enter your email"/>
+                    <input type="email" id="form-email" name="email" placeholder="Enter your email"/>
                 </div>
                     <center><button className="form-submit">Submit</button></center>
             
