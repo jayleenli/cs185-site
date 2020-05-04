@@ -31,7 +31,6 @@ export default class Message extends Component {
 
         //random color for avatar
         const avatarColor = this.props.avatarColor;
-        //console.log(avatarColor);
 
         return (
             <div className="msg" id={this.getId()}>

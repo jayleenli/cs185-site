@@ -71,7 +71,6 @@ export default class GuestBookForm extends Component {
         } 
     }
 
-
     render() {
         return (
             <form onSubmit={this.handleSubmit}>

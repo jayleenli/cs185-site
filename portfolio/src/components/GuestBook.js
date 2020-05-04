@@ -25,8 +25,12 @@ export default class GuestBook extends Component {
             const data = snapshot.val()
             this.setState({firebaseData: data})
             console.log("updated firebase state")
-            this.addAnimation();
-
+            if (!this.state.firstRender) {
+                this.addAnimation();
+            }
+            else {
+                this.setState ({ firstRender: false })
+            }
         })
 
     }
@@ -47,7 +51,6 @@ export default class GuestBook extends Component {
 
     render() {
         const data = this.state.firebaseData;
-        console.log("re render" + data);
 
         var msgArr = [];
         Object.keys(data).forEach(function(key) {
@@ -62,8 +65,6 @@ export default class GuestBook extends Component {
             <Message key={msg.msgDateTime} avatarColor={'#'+Math.floor(Math.random()*16777215).toString(16)} msgDateTime={msg.datetime} msgName={msg.name} msgDesc={msg.desc} msgText={msg.message}></Message>
         ));
 
-        //console.log("first rendered mesg")
-        //console.log(renderedMsgs[0])
         if (renderedMsgs[0]) {
             renderedMsgs[0] = React.cloneElement(
                 renderedMsgs[0], 
