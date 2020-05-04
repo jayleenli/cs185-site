@@ -8,3 +8,11 @@ window.addEventListener("scroll", function(){
 		scrollBtn.style.display = "none";
 	}
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+	// Handler when the DOM is fully loaded
+	var message = document.getElementsById("firstMsg");
+	if (message) {
+		message.classList.add("animated bounceIn");
+	} 
+  });
