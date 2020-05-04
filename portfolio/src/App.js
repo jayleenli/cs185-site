@@ -25,8 +25,10 @@ export class App extends Component {
         return 'Photo Gallery'
     } else if (activeTab === 'Animations') {
         return 'Videos I Animated'
-    } else {
+    } else if (activeTab === 'Games') {
         return 'Games'
+    } else {
+        return 'Guest Book'
     }
   }
 
@@ -52,6 +54,10 @@ export class App extends Component {
       {
         id: 4,
         title: "Games"
+      },
+      {
+        id: 5,
+        title: "GuestBook"
       }
     ];
 

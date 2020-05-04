@@ -5,8 +5,8 @@ export class TabList extends Component {
     render() {
         /* how to do a console log in jsx: { console.log(this.props)} */
         //console.log(this.props)
-        const renderedPages = this.props.pages.map((page) => (
-            <Page page={page} changePage={this.props.changePage} activeTab={this.props.activeTab}/>
+        const renderedPages = this.props.pages.map((page, i) => (
+            <Page key={i} page={page} changePage={this.props.changePage} activeTab={this.props.activeTab}/>
         ))
         return (
             <div id="nav-bar-div" className="nav-bar">

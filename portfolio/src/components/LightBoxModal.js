@@ -27,8 +27,7 @@ export default class LightBoxModal extends Component {
         const thisImage = images.find((image) => image.title === this.props.activeImage)
         var thisImageSrc = null;
         var thisImageDesc = null;
-        //console.log("this image" )
-        //console.log(thisImage)
+
         if (thisImage) {
             thisImageSrc = thisImage.src
             thisImageDesc = thisImage.description
@@ -38,10 +37,10 @@ export default class LightBoxModal extends Component {
             thisImageSrc = images[0].src
             thisImageDesc = images[0].description
         }
-        //console.log(images)
-        //console.log("active page " + this.props.activeImage)
+
         this.makeVisible();
         this.addClickListener();
+        
         return (
             <div id="lightbox-modal" className="photo-modal">
                 <div className="modal-content">
