@@ -382,7 +382,7 @@ html *
 }
 
 .msg-box {
-  width: 55%;
+  width: 92%;
   padding: 8px 32px;
   overflow-y: scroll;
   height: 590px;
@@ -443,6 +443,16 @@ html *
   vertical-align: middle;
   font-weight: bold;
   display: table-cell;
+}
+
+.scroll-more {
+  position: relative;
+  display: block;
+  color: #545454;
+}
+
+.guestbook-msgs {
+  width: 55%;
 }
 
 /* Responsive */
@@ -539,6 +549,10 @@ html *
 
   .form-error {
     padding-bottom: 12px;
+  }
+
+  .guestbook-msgs {
+    width: 100%;
   }
 }
 

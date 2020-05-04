@@ -11,7 +11,7 @@ export default class GuestBook extends Component {
         super();
         this.state = {
         firebaseData: {},
-        shouldUpdate: false
+        firstRender: true
         }
     }
 
@@ -19,16 +19,31 @@ export default class GuestBook extends Component {
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         } 
-        //load data 
+        //load and update data 
         let ref = firebase.database().ref('guestBookData')
         ref.on('value', snapshot => {
             const data = snapshot.val()
             this.setState({firebaseData: data})
-            console.log(data)
+            console.log("updated firebase state")
+            this.addAnimation();
 
         })
+
     }
-    
+
+    addAnimation() {
+        var message = document.getElementById("firstMsg");
+        console.log("running");
+        if (message) {
+            message.classList.add("animated");
+            message.classList.add("bounceIn");
+
+            setTimeout(function(){ 
+                message.classList.remove("animated");
+                message.classList.remove("bounceIn");
+            }, 2000);
+        } 
+    }
 
     render() {
         const data = this.state.firebaseData;
@@ -40,19 +55,34 @@ export default class GuestBook extends Component {
                 msgArr.push(data[key]);
             }
         });
+        msgArr.reverse();
 
-        const renderedMsgs = msgArr.map((msg) => (
-            <Message avatarColor={'#'+Math.floor(Math.random()*16777215).toString(16)} msgDateTime={msg.datetime} msgName={msg.name} msgDesc={msg.desc} msgText={msg.message}></Message>
+
+        const renderedMsgs = msgArr.map((msg, i) => (
+            <Message key={msg.msgDateTime} avatarColor={'#'+Math.floor(Math.random()*16777215).toString(16)} msgDateTime={msg.datetime} msgName={msg.name} msgDesc={msg.desc} msgText={msg.message}></Message>
         ));
+
+        //console.log("first rendered mesg")
+        //console.log(renderedMsgs[0])
+        if (renderedMsgs[0]) {
+            renderedMsgs[0] = React.cloneElement(
+                renderedMsgs[0], 
+                { animated: true }
+            );
+        }
 
         return (
             <div id="main-body">
                 <div className="contact-form animated fadeInLeft">
                     <GuestBookForm/>
                 </div>
+                <div className="guestbook-msgs">
                 <div className="msg-box">
                     {renderedMsgs}
                 </div>
+                <div className="scroll-more"><center><p>Scroll to view older messages</p></center> </div>
+                </div>
+                
             </div>
         )
     }

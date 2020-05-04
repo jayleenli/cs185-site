@@ -80,15 +80,15 @@ export default class GuestBookForm extends Component {
                 
                 <div className="form-input-field">
                     <label className="form-label" for="form-name">Your name:</label><br/>
-                    <input type="text" id="form-name" name="name" placeholder="Enter your name" maxlength="19" required/>
+                    <input type="text" id="form-name" name="name" placeholder="Enter your name" maxLength="19" required/>
                 </div>
                 <div className="form-input-field">                   
                     <label className="form-label" for="form-desc">Description (optional):</label><br/>
-                    <input type="text" id="form-desc" name="desc" placeholder="Offer a short description of yourself" maxlength="99"/>
+                    <input type="text" id="form-desc" name="desc" placeholder="Offer a short description of yourself" maxLength="99"/>
                 </div> 
                 <div className="form-input-field">
                     <label className="form-label" for="form-message">Message:</label><br/>
-                    <input type="text" id="form-message" name="message" placeholder="Enter your message" maxlength="499" required/>
+                    <input type="text" id="form-message" name="message" placeholder="Enter your message" maxLength="499" required/>
                 </div>   
                 <div className="form-input-field">
                     <span className="form-label">Would you like your message to be publicly viewable? </span><br/>

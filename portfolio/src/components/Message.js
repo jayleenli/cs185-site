@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 
 export default class Message extends Component {
+    getId() {
+        if (this.props.animated) {
+            return "firstMsg"
+        }
+        else return "notFirst"
+    }
+
     render() {
         var msgDateTime = new Date(this.props.msgDateTime);
         msgDateTime = msgDateTime.toString();
@@ -27,7 +34,7 @@ export default class Message extends Component {
         //console.log(avatarColor);
 
         return (
-            <div className="msg animated bounceIn">
+            <div className="msg" id={this.getId()}>
                     <div className="msg-left-div"><div className="msg-avatar" style={{backgroundColor: avatarColor}}>{initials}</div></div>
                     <div className="msg-right-div">
                         <span className="msg-date-time">{msgDateTime}</span><br/>
