@@ -43,7 +43,7 @@ export default class Games extends Component {
 				alt: "nier",
 				header: "NieR:Automata",
 				desc: "My favorite game!",
-				hours: "73917.0"
+				hours: "39.0"
 			},
 			{
 				imageSrcLink: "/* image source: https://store.steampowered.com/app/291860/Pit_People/ */",
