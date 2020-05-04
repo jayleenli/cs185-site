@@ -11,7 +11,7 @@ window.addEventListener("scroll", function(){
 
 document.addEventListener("DOMContentLoaded", function(){
 	// Handler when the DOM is fully loaded
-	var message = document.getElementsById("firstMsg");
+	var message = document.getElementById("firstMsg");
 	if (message) {
 		message.classList.add("animated bounceIn");
 	} 
