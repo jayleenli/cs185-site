@@ -8,7 +8,6 @@ import GuestBook from './GuestBook';
 export class Body extends Component {
     displayContent = () => {
         var activeTab = this.props.activeTab
-        //console.log(activeTab)
         if (activeTab === 'Home') {
             return <Home/>
         } else if (activeTab === 'Photos') {

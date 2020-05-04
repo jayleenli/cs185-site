@@ -1,55 +1,71 @@
 import React, { Component } from 'react'
+import GameContent from './GameContent'
 
 export default class Games extends Component {
+	
     render() {
+		const games = [
+			{
+				imageSrcLink: "/* image source: https://store.steampowered.com/app/440/Team_Fortress_2/ */",
+				imageSrc: "images/games/tf2.jpg",
+				alt: "tf2",
+				header: "Team Fortress 2",
+				desc: "Really the first game I invested a lot of time in and made online friends in!",
+				hours: "717.0"
+			},
+			{
+				imageSrcLink: "/* image source: https://store.steampowered.com/app/444090/Paladins/ */",
+				imageSrc: "images/games/paladins.jpg",
+				alt: "paladins",
+				header: "Paladins",
+				desc: "Overwatch but for poor people.",
+				hours: "107.0"
+			},
+			{
+				imageSrcLink: "/*image source: https://store.steampowered.com/app/322330/Dont_Starve_Together/*/",
+				imageSrc: "images/games/dontstarvetog.jpg",
+				alt: "dst",
+				header: "Don't Starve Together",
+				desc: "Don't starve!",
+				hours: "71.0"
+			},
+			{
+				imageSrcLink: "/* image source: https://www.youtube.com/watch?v=kwoR1TKQF4Y */",
+				imageSrc: "images/games/osu.jpg",
+				alt: "osu",
+				header: "Osu!",
+				desc: "Additing rhythm game...",
+				hours: "62.0"
+			},
+			{
+				imageSrcLink: "/* image source: https://store.steampowered.com/app/524220/NieRAutomata/ */",
+				imageSrc: "images/games/nier.jpg",
+				alt: "nier",
+				header: "NieR:Automata",
+				desc: "My favorite game!",
+				hours: "73917.0"
+			},
+			{
+				imageSrcLink: "/* image source: https://store.steampowered.com/app/291860/Pit_People/ */",
+				imageSrc: "images/games/pitpeople.jpg",
+				alt: "pitpeople",
+				header: "Pit People",
+				desc: "Been playing this a lot! Love Behemoth games",
+				hours: "21.0"
+			},
+		]
+
+		const gameContents = games.map((game, i) => (
+            <GameContent key={i} imageSrcLink={game.imageSrcLink} imageSrc={game.imageSrc} 
+			alt={game.alt} header={game.header} desc={game.desc} hours={game.hours}/>
+		))
+		
         return (
             <div className="games-desc">
 			<p>
 				Top games I've spent a lot of time playing <br/><br/>
 			</p>
-			<div className="game-content">
-				<div className="game-section">
-					{/* image source: https://store.steampowered.com/app/440/Team_Fortress_2/ */}
-					<div className="game-img-section"><img className="game-img" src="images/games/tf2.jpg" alt="tf2"/></div><div className="game-content"><h2>Team Fortress 2</h2><p>Really the first game I invested a lot of time in and made online friends in!</p> <div>Hours: 717.0</div></div> 
-				</div>
-				<hr/>
-			</div>
-			<div className="game-content">
-				<div className="game-section">
-					{/* image source: https://store.steampowered.com/app/444090/Paladins/ */}
-					<div className="game-img-section"><img className="game-img" src="images/games/paladins.jpg" alt="paladins"/></div><div className="game-content"><h2>Paladins</h2><p>Overwatch but for poor people.</p> <div>Hours: 107.0</div></div> 
-				</div>
-				<hr/>
-			</div>
-			<div className="game-content">
-				<div className="game-section">
-                {/*image source: https://store.steampowered.com/app/322330/Dont_Starve_Together/*/}
-					<div className="game-img-section"><img className="game-img" src="images/games/dontstarvetog.jpg" alt="dst"/></div><div className="game-content"><h2>Don't Starve Together</h2><p>Don't starve!</p> <div>Hours: 71.0</div></div> 
-				</div>
-				<hr/>
-			</div>
-			<div className="game-content">
-				<div className="game-section">
-                    {/* image source: https://www.youtube.com/watch?v=kwoR1TKQF4Y */}
-					<div className="game-img-section"><img className="game-img" src="images/games/osu.jpg" alt="osu"/></div><div className="game-content"><h2>Osu!</h2><p>Additing rhythm game...</p> <div>Hours: 62.0</div></div> 
-				</div>
-				<hr/>
-			</div>
-			<div className="game-content">
-				<div className="game-section">
-					{/* image source: https://store.steampowered.com/app/524220/NieRAutomata/ */}
-					<div className="game-img-section"><img className="game-img" src="images/games/nier.jpg" alt="nier"/></div><div className="game-content"><h2>NieR:Automata</h2><p>My favorite game!</p> <div>Hours: 39.0</div></div> 
-				</div>
-				<hr/>
-			</div>
-			<div className="game-content">
-				<div className="game-section">
-					{/* image source: https://store.steampowered.com/app/291860/Pit_People/ */}
-					<div className="game-img-section"><img className="game-img" src="images/games/pitpeople.jpg" alt="pitpeople"/></div><div className="game-content"><h2>Pit People</h2><p>Been playing this a lot! Love Behemoth games</p> <div>Hours: 21.0</div></div> 
-				</div>
-				<hr/>
-			</div>
-
+			{gameContents}
 		</div>
         )
     }
