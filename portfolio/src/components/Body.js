@@ -4,6 +4,7 @@ import Photos from './Photos';
 import Animations from './Animations';
 import Games from './Games';
 import GuestBook from './GuestBook';
+import MovieList from './MovieList';
 
 export class Body extends Component {
     displayContent = () => {
@@ -16,8 +17,10 @@ export class Body extends Component {
             return <Animations/>
         } else if (activeTab === 'Games'){
             return <Games/>
-        } else {
+        } else if (activeTab === 'GuestBook'){
             return <GuestBook/>
+        } else {
+            return <MovieList/>
         }
     }
     render() {

@@ -22,13 +22,15 @@ export class App extends Component {
     if (activeTab === 'Home') {
       return "Jayleen's Portfolio"
     } else if (activeTab === 'Photos') {
-        return 'Photo Gallery'
+        return "Photo Gallery"
     } else if (activeTab === 'Animations') {
-        return 'Videos I Animated'
+        return "Videos I Animated"
     } else if (activeTab === 'Games') {
-        return 'Games'
+        return "Games"
+    } else if (activeTab === 'GuestBook') {
+        return "Guest Book"
     } else {
-        return 'Guest Book'
+      return "Movie List"
     }
   }
 
@@ -58,6 +60,10 @@ export class App extends Component {
       {
         id: 5,
         title: "GuestBook"
+      },
+      {
+        id: 6,
+        title: "Movie List"
       }
     ];
 
