@@ -17,6 +17,16 @@ export default class Movie extends Component {
     }
 
     wasClicked = () => {
+        //disable the scroll
+        // Get the current page scroll position 
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
+        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  
+        // if any scroll is attempted, set this to the previous value 
+        window.onscroll = function() { 
+            window.scrollTo(scrollLeft, scrollTop); 
+        }; 
+
         var modal = document.getElementById("movie-lightbox-modal");
         modal.style.display = "flex";
 
@@ -31,13 +41,14 @@ export default class Movie extends Component {
         document.getElementById("movie-director").innerHTML = this.state.director;
         document.getElementById("movie-runtime").innerHTML = this.state.runtime;
 
-
         //Add listener for clicking out of modal
         if (modal) {
             modal.addEventListener("click", e=>{
                 if(e.target !== e.currentTarget)
                     return;
                 modal.style.display = "none";
+                //re enable scrolling
+                window.onscroll = function() {}; 
             })
         }
     }
