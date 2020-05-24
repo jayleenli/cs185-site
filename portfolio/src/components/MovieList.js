@@ -19,6 +19,17 @@ export default class MovieList extends Component {
         }
     }
 
+    showDropdown() {
+        var dropdown = document.getElementById("movieDropDown");
+        if (dropdown.style.display === "none" || dropdown.style.display === "") {
+            dropdown.style.display = "block";
+        }
+        else {
+            dropdown.style.display = "none";
+        }
+        
+    }
+
     render() {
         //load all movies, we can just hardcode according to Piazza. 
         
@@ -29,7 +40,23 @@ export default class MovieList extends Component {
         ));
 
         return (
-            <div id="main-body">
+            <div>
+                <div className="movie-list-top"> 
+                    <div className = "movie-list-dropdown">
+                        <button onClick={this.showDropdown} className="movie-list-dropdown-btn">All &#x25BC;</button>
+                        <div id="movieDropDown" className="movie-list-dropdown-cnt">
+                            <a>All</a>
+                            <a>Watched</a>
+                            <a>WannaWatch</a>
+                        </div>
+                    </div>
+                    <div className="movie-list-search">
+                        <input className="movie-list-search-box" type="text" id="movieSearch" name="movieSearch" placeholder="Movie Title"/>
+                        <button className="movie-list-search-btn">Search</button>
+                    </div>
+
+                </div>
+                <br/>
                 <div id="movie-list" className="movie-list">
                     {movieList}
                 </div>
