@@ -37,7 +37,7 @@ export default class AddMovie extends Component {
                 <p>Adds a movie to the movie list!</p>
                 <div className="add-movie">
                     <input className="text-input-box" type="text" id="addMovieBox" name="addMovieBox" maxLength="10" placeholder="Movie ImdbID"/>
-                    <button onClick={this.addMovieEvent} className="text-input-btn">Add Movie</button>
+                    <button onClick={() => {this.addMovieEvent()}} className="text-input-btn">Add Movie</button>
                     <p className="small-txt" id="smalltxt">Please give the imdbID of the movie from the imdb site.</p>
                 </div>
 		    </div>

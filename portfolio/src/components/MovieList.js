@@ -31,7 +31,7 @@ export default class MovieList extends Component {
 
         //load and update data only first 8
         let ref = firebase.database().ref('movies').orderByKey().limitToFirst(8)
-        ref.on('value', snapshot => {
+        ref.once('value', snapshot => {
             const data = snapshot.val()
             console.log(data)
             
@@ -90,7 +90,7 @@ export default class MovieList extends Component {
         var pastFireBaseData = this.state.firebaseAllMovieData
 
         let ref = firebase.database().ref('movies').orderByKey().limitToFirst(numLimit).startAt(start);
-        ref.on('value', snapshot => {
+        ref.once('value', snapshot => {
             const data = snapshot.val()
             //console.log(data)
             
@@ -118,7 +118,7 @@ export default class MovieList extends Component {
             <div className="movie-list-container">
                 <div className="movie-list-top"> 
                     <div className = "movie-list-dropdown">
-                        <button onClick={this.showDropdown} className="movie-list-dropdown-btn">All &#x25BC;</button>
+                        <button onClick={()=>{this.showDropdown()}} className="movie-list-dropdown-btn">All &#x25BC;</button>
                         <div id="movieDropDown" className="movie-list-dropdown-cnt">
                             <a>All</a>
                             <a>Watched</a>
