@@ -1,13 +1,33 @@
 /* eslint-disable */ 
 import React, { Component } from 'react'
+import config from '../config';
+const firebase = require('firebase')
 
 export default class MovieLightBoxModal extends Component {
+    showDropdown() {
+        var dropdown = document.getElementById("listDropdown");
+        if (dropdown.style.display === "none" || dropdown.style.display === "") {
+            dropdown.style.display = "block";
+        }
+        else {
+            dropdown.style.display = "none";
+        }
+    }
+
+    deleteThisMovie() {
+        let thisMovieID = document.getElementById("modal-imdb").innerHTML;
+        var ref = firebase.database().ref("movies/" + thisMovieID);
+        console.log("deleting")
+        //Also need to remove this from all lists.
+        //ref.remove();
+    }
+
 
     render() {
         return (
             <div id="movie-lightbox-modal" className="movie-modal">
                 <div className="movie-modal-content">
-                    
+                    <a id="modal-imdb"></a>
                     <img id="modal-img" alt="lightbox photo"/>
                     <div className="movie-info-container">
                         <h2 id="movie-title"></h2>
@@ -19,6 +39,14 @@ export default class MovieLightBoxModal extends Component {
 
                         <div className="movie-modal-runtime"><b>Runtime: </b><a id="movie-runtime"></a> </div><br/>
                         <b>Directed By: </b><a id="movie-director"></a>
+
+                        <div className = "movie-modal-bottom">
+                            <button onClick={()=>{this.showDropdown()}} className="add-to-list-btn">Add to list &#x25BC;</button>
+                            <div id="listDropdown" className="add-to-list-cnt">
+
+                            </div>
+                            <button onClick={()=>{this.deleteThisMovie()}} className="delete-movie-btn">Delete Movie</button>
+                        </div>
                     </div>
                 </div>
             </div>

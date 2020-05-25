@@ -12,7 +12,8 @@ export default class Movie extends Component {
             ratingIMDb: 'None',
             ratingRt: 'None',
             plot: 'None',
-            runtime: 'None'
+            runtime: 'None',
+            id: 'None'
         }
         
     }
@@ -33,12 +34,27 @@ export default class Movie extends Component {
                 ratingIMDb: data.imdbRating,
                 ratingRt: data.Ratings[1].Value,
                 plot: data.Plot,
-                runtime: data.Runtime
+                runtime: data.Runtime,
+                id: data.imdbID
             })
         })
     }
 
     wasClicked = () => {
+        /*//Load the lists this movie is not in
+        let ref2 = firebase.database().ref('movieListPairs/' + this.props.movieID)
+        ref2.once('value', snapshot => {
+            const data = snapshot.val()
+            console.log(data)
+            
+            
+            //let result = inside.map(a => a.title);
+            console.log(result)
+            this.setState({
+                firebaseListNames: result
+            })
+        })*/
+
         //disable the scroll
         // Get the current page scroll position 
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
@@ -62,6 +78,10 @@ export default class Movie extends Component {
         document.getElementById("movie-plot").innerHTML = this.state.plot;
         document.getElementById("movie-director").innerHTML = this.state.director;
         document.getElementById("movie-runtime").innerHTML = this.state.runtime;
+        document.getElementById("modal-imdb").innerHTML = this.state.id;
+        
+        
+
 
         //Add listener for clicking out of modal
         if (modal) {
@@ -81,3 +101,17 @@ export default class Movie extends Component {
         )
     }
 }
+
+/*    getDropdownLists() {
+        const listNames = this.props.dropdownLists;
+        console.log("get dropdownlists")
+        //Need to check what lists this movie is not in though
+
+        console.log(listNames)
+        if (Object.keys(listNames).length != 0) {
+            const listNamesRen = listNames.map((list, index) => (
+                <a onClick={() => {this.changeList(index)}}>{list}</a>
+            ))
+            return listNamesRen
+        }
+    }*/

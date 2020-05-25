@@ -12,7 +12,10 @@ export default class MovieList extends Component {
             movieClicked: false,
             firebaseAllMovieData: {},
             lastKeyLoaded: 'None',
-            page: 1
+            page: 1,
+            numMovies: null,
+            firebaseListNames: {},
+            searchedKey: 'None'
         }
 
         this.changeActiveMovie = (movieName) => {
@@ -24,10 +27,38 @@ export default class MovieList extends Component {
         }
     }
 
+    componentDidUpdate() {
+        console.log("component updated", this.state.numMovies)
+        if (this.state.numMovies != null) {
+            //check to see if need to have load more button shown or hidden
+            console.log("HELLO")
+            console.log(this.state.page*8)
+            console.log(this.state.numMovies)
+            if (this.state.page*8 >= this.state.numMovies) {
+                //don't need to show load more
+                document.getElementById("loadMore").style.display = 'none';
+            }
+            else {
+                document.getElementById("loadMore").style.display = 'block';
+            }
+        }
+        if (this.state.searchedKey != 'None') {
+            document.getElementById("loadMore").style.display = 'none';
+        } 
+
+    }
+
     componentDidMount() {
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         } 
+        let ref1 = firebase.database().ref('movies')
+        ref1.once('value', snapshot => {
+            //const data = snapshot.numChildren()
+            this.setState({
+                numMovies: snapshot.numChildren()
+            })
+        })
 
         //load and update data only first 8
         let ref = firebase.database().ref('movies').orderByKey().limitToFirst(8)
@@ -37,11 +68,30 @@ export default class MovieList extends Component {
             
             const keys = Object.keys(data)
 
-            console.log(keys[7])
             this.setState({
                 firebaseAllMovieData: data,
-                lastKeyLoaded: keys[7],
+                lastKeyLoaded: keys[keys.length-1],
                 page: 1
+            })
+        })
+
+        //load list names
+        let ref2 = firebase.database().ref('movieLists')
+        ref2.orderByChild('title').once('value', snapshot => {
+            const data = snapshot.val()
+            console.log(data)
+            
+            //const inside = Object.values(data)
+            const keys = Object.keys(data)
+            var result  = []
+
+            for(var x = 0; x < keys.length; x++) {
+                result[keys[x]] = data[keys[x]].title
+            }
+            //let result = inside.map(a => a.title);
+            console.log(result)
+            this.setState({
+                firebaseListNames: result
             })
         })
     }
@@ -54,7 +104,76 @@ export default class MovieList extends Component {
         else {
             dropdown.style.display = "none";
         }
-        
+    }
+
+    getDropdownLists() {
+        const listNames = this.state.firebaseListNames;
+        console.log("get dropdownlists")
+        console.log(listNames)
+        if (Object.keys(listNames).length != 0) {
+            const listNamesRen = listNames.map((list, index) => (
+                <a onClick={() => {this.changeList(index)}}>{list}</a>
+            ))
+            listNamesRen.unshift(<a onClick={() => {this.changeList("all")}}>All</a>)
+            return listNamesRen
+        }
+    }
+
+    /*changeList(listID) {
+        let query = firebase.database().ref('movieListPairs').orderByKey().equalTo(listID)
+        query.once('value', snapshot => {
+            const data = snapshot.val()
+            console.log(data)
+            
+            const keys = Object.keys(data)
+
+            console.log(keys[7])
+            this.setState({
+                firebaseAllMovieData: data,
+                lastKeyLoaded: keys[7],
+                page: 1
+            })
+        })
+    }*/
+
+    searchMovies() {
+        var searchBtn = document.getElementById("searchMovieBtn")
+        if (searchBtn.innerHTML === "Clear") {
+            document.getElementById("movieSearch").value = "";
+            document.getElementById("search-small-txt").style.display = "none";
+            searchBtn.innerHTML = "Search"
+            this.setState({
+                searchedKey: 'None'
+            })
+        }
+        else {
+            var searchInput = document.getElementById("movieSearch").value;
+            var found = false
+            let ref = firebase.database().ref('movies')
+            ref.once('value', snapshot => {
+                const data = snapshot.val()
+                console.log(data)
+
+                for (let [key, value] of Object.entries(data)) {
+                    if (value["Title"].toLowerCase() === searchInput.toLowerCase()) {
+                        found = true
+                        console.log("found" + key)
+                        
+                        this.setState({
+                            searchedKey: key
+                        })
+                    }
+
+                }
+                if (found == false) {
+                    document.getElementById("search-small-txt").style.display = "block"
+                }
+                else {
+                    document.getElementById("search-small-txt").style.display = "none"
+                }
+                document.getElementById("searchMovieBtn").innerHTML = "Clear"
+            })
+        }
     }
 
     getAllMovieIDs() {
@@ -63,16 +182,19 @@ export default class MovieList extends Component {
 
     loadMovies () {
         console.log("load movies called")
-        
+        if (this.state.searchedKey != 'None') {
+            return <Movie handleClick={this.changeActiveMovie.bind(this)} movieID={this.state.searchedKey}></Movie>
+        }
+        else {
+            const movies = this.getAllMovieIDs();
+    
+            const movieList = movies.map ((movie) => (
+                <Movie handleClick={this.changeActiveMovie.bind(this)} key={movie} movieID={movie}></Movie>
+            ));
+            
+            return movieList
+        }
 
-        const movies = this.getAllMovieIDs();
-        //console.log(movies)
-
-        const movieList = movies.map ((movie) => (
-            <Movie handleClick={this.changeActiveMovie.bind(this)} key={movie} movieID={movie}></Movie>
-        ));
-        
-        return movieList
     }
 
     loadMore() {
@@ -112,7 +234,6 @@ export default class MovieList extends Component {
     }
 
     render() {
-        //load all movies, we can just hardcode according to Piazza. 
 
         return (
             <div className="movie-list-container">
@@ -120,15 +241,15 @@ export default class MovieList extends Component {
                     <div className = "movie-list-dropdown">
                         <button onClick={()=>{this.showDropdown()}} className="movie-list-dropdown-btn">All &#x25BC;</button>
                         <div id="movieDropDown" className="movie-list-dropdown-cnt">
-                            <a>All</a>
-                            <a>Watched</a>
-                            <a>WannaWatch</a>
+                            {this.getDropdownLists()}
                         </div>
                     </div>
                     <div className="movie-list-search">
                         <input className="movie-list-search-box" type="text" id="movieSearch" name="movieSearch" placeholder="Movie Title"/>
-                        <button className="movie-list-search-btn">Search</button>
+                        <button id="searchMovieBtn" onClick={() => {this.searchMovies()}} className="movie-list-search-btn">Search</button>
+                        <p className="small-txt-search" id="search-small-txt">Not found.</p>
                     </div>
+                    
 
                 </div>
                 <br/>
@@ -137,7 +258,7 @@ export default class MovieList extends Component {
                 </div>
                 <center><button id="loadMore" onClick={this.loadMore.bind(this)} className="movie-list-load-more">Load More</button></center>
 
-               <MovieLightBoxModal/>
+               <MovieLightBoxModal dropdownLists={this.state.firebaseListNames}/>
 
 		    </div>
         )
