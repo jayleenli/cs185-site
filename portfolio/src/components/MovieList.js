@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import MovieLightBoxModal from './MovieLightBoxModal'
 import Movie from './Movie'
+import config from '../config';
+const firebase = require('firebase')
 
 export default class MovieList extends Component {
     constructor() {
         super();
         this.state = {
             activeMovie: 'None',
-            movieClicked: false
+            movieClicked: false,
+            firebaseAllMovieData: {},
+            lastKeyLoaded: 'None',
+            page: 1
         }
 
         this.changeActiveMovie = (movieName) => {
@@ -17,6 +22,28 @@ export default class MovieList extends Component {
                 movieClicked: true
             })
         }
+    }
+
+    componentDidMount() {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(config)
+        } 
+
+        //load and update data only first 8
+        let ref = firebase.database().ref('movies').orderByKey().limitToFirst(8)
+        ref.on('value', snapshot => {
+            const data = snapshot.val()
+            console.log(data)
+            
+            const keys = Object.keys(data)
+
+            console.log(keys[7])
+            this.setState({
+                firebaseAllMovieData: data,
+                lastKeyLoaded: keys[7],
+                page: 1
+            })
+        })
     }
 
     showDropdown() {
@@ -30,17 +57,65 @@ export default class MovieList extends Component {
         
     }
 
-    render() {
-        //load all movies, we can just hardcode according to Piazza. 
+    getAllMovieIDs() {
+        return Object.keys(this.state.firebaseAllMovieData)
+    }
+
+    loadMovies () {
+        console.log("load movies called")
         
-        const movies = [ "tt0325980", "tt0087469", "tt0816692", "tt4633694", "tt1211837", "tt8946378", "tt5311514", "tt1375666"];
+
+        const movies = this.getAllMovieIDs();
+        //console.log(movies)
 
         const movieList = movies.map ((movie) => (
             <Movie handleClick={this.changeActiveMovie.bind(this)} key={movie} movieID={movie}></Movie>
         ));
+        
+        return movieList
+    }
+
+    loadMore() {
+        console.log("load more clicked")
+        var currPage = this.state.page
+        currPage = currPage+1
+        console.log(currPage)
+
+        //load more
+        var numLimit = 8
+        //console.log(this.state)
+        var start = (this.state.lastKeyLoaded)
+        console.log(start)
+
+        var pastFireBaseData = this.state.firebaseAllMovieData
+
+        let ref = firebase.database().ref('movies').orderByKey().limitToFirst(numLimit).startAt(start);
+        ref.on('value', snapshot => {
+            const data = snapshot.val()
+            //console.log(data)
+            
+            const keys = Object.keys(data)
+
+            var newFireBaseData = pastFireBaseData
+            for (let [key, value] of Object.entries(data)) {
+                newFireBaseData[key] = value
+            }
+
+            //console.log(newFireBaseData)
+            this.setState({
+                firebaseAllMovieData: newFireBaseData,
+                lastKeyLoaded: keys[numLimit-1],
+                page: currPage
+            })
+        })
+
+    }
+
+    render() {
+        //load all movies, we can just hardcode according to Piazza. 
 
         return (
-            <div>
+            <div className="movie-list-container">
                 <div className="movie-list-top"> 
                     <div className = "movie-list-dropdown">
                         <button onClick={this.showDropdown} className="movie-list-dropdown-btn">All &#x25BC;</button>
@@ -58,8 +133,9 @@ export default class MovieList extends Component {
                 </div>
                 <br/>
                 <div id="movie-list" className="movie-list">
-                    {movieList}
+                    {this.loadMovies()}
                 </div>
+                <center><button id="loadMore" onClick={this.loadMore.bind(this)} className="movie-list-load-more">Load More</button></center>
 
                <MovieLightBoxModal/>
 

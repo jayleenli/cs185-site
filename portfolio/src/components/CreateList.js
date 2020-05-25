@@ -6,7 +6,7 @@ export default class CreateList extends Component {
             <div className="add-create-body">
                 <p>Create a new movie list to sort movies by.</p>
                 <div>
-                    <input className="text-input-box" type="text" id="movieSearch" name="movieSearch"  placeholder="List Name"/>
+                    <input className="text-input-box" type="text" id="createList" name="createList"  placeholder="List Name"/>
                     <button className="text-input-btn">Create List</button>
                     <p className="small-txt">Please enter a title for the new movie list.</p>
                 </div>
