@@ -15,8 +15,9 @@ export default class MovieList extends Component {
             page: 1,
             numMovies: null,
             firebaseListNames: {},
-            searchedKey: 'None'
+            searchedKey: 'None',
         }
+        this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
 
         this.changeActiveMovie = (movieName) => {
             console.log("changed active state")
@@ -96,6 +97,37 @@ export default class MovieList extends Component {
         })
     }
 
+    rerenderParentCallback () {
+        console.log("forced update")
+        //Because something got deleted, need to rerun the movielist.
+        
+        let ref1 = firebase.database().ref('movies')
+        ref1.once('value', snapshot => {
+            //const data = snapshot.numChildren()
+            this.setState({
+                numMovies: snapshot.numChildren()
+            })
+        })
+
+        //load and update data only first 8
+        let ref = firebase.database().ref('movies').orderByKey().limitToFirst(8)
+        ref.once('value', snapshot => {
+            const data = snapshot.val()
+            console.log(data)
+            
+            const keys = Object.keys(data)
+
+            this.setState({
+                firebaseAllMovieData: data,
+                lastKeyLoaded: keys[keys.length-1],
+                page: 1
+            })
+        })
+
+        this.forceUpdate();
+        
+    }
+
     showDropdown() {
         var dropdown = document.getElementById("movieDropDown");
         if (dropdown.style.display === "none" || dropdown.style.display === "") {
@@ -152,7 +184,6 @@ export default class MovieList extends Component {
             let ref = firebase.database().ref('movies')
             ref.once('value', snapshot => {
                 const data = snapshot.val()
-                console.log(data)
 
                 for (let [key, value] of Object.entries(data)) {
                     if (value["Title"].toLowerCase() === searchInput.toLowerCase()) {
@@ -205,9 +236,7 @@ export default class MovieList extends Component {
 
         //load more
         var numLimit = 8
-        //console.log(this.state)
         var start = (this.state.lastKeyLoaded)
-        console.log(start)
 
         var pastFireBaseData = this.state.firebaseAllMovieData
 
@@ -258,7 +287,7 @@ export default class MovieList extends Component {
                 </div>
                 <center><button id="loadMore" onClick={this.loadMore.bind(this)} className="movie-list-load-more">Load More</button></center>
 
-               <MovieLightBoxModal dropdownLists={this.state.firebaseListNames}/>
+               <MovieLightBoxModal rerenderParentCallback={this.rerenderParentCallback} dropdownLists={this.state.firebaseListNames}/>
 
 		    </div>
         )

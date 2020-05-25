@@ -23,8 +23,10 @@ export default class AddMovie extends Component {
             console.log("uploaded to firebase")
             document.getElementById("smalltxt").innerHTML = "Movie Added!"
             setTimeout(function() {
-                document.getElementById("smalltxt").innerHTML = "Please give the imdbID of the movie from the imdb site."
-            }, 1500)
+                if (document.getElementById("smalltxt") != null){
+                    document.getElementById("smalltxt").innerHTML = "Please give the imdbID of the movie from the imdb site."
+                }
+            }, 1000)
         })
         .catch(function (error) {
             console.log(error);

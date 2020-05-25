@@ -13,7 +13,8 @@ export default class Movie extends Component {
             ratingRt: 'None',
             plot: 'None',
             runtime: 'None',
-            id: 'None'
+            id: 'None',
+            deleted: false
         }
         
     }
@@ -27,16 +28,23 @@ export default class Movie extends Component {
         let ref = firebase.database().ref('movies/'+this.props.movieID)
         ref.on('value', snapshot => {
             const data = snapshot.val()
-            this.setState({
-                title: data.Title,
-                poster: data.Poster,
-                director: data.Director,
-                ratingIMDb: data.imdbRating,
-                ratingRt: data.Ratings[1].Value,
-                plot: data.Plot,
-                runtime: data.Runtime,
-                id: data.imdbID
-            })
+            if (data !== null ) {
+                this.setState({
+                    title: data.Title,
+                    poster: data.Poster,
+                    director: data.Director,
+                    ratingIMDb: data.imdbRating,
+                    ratingRt: data.Ratings[1].Value,
+                    plot: data.Plot,
+                    runtime: data.Runtime,
+                    id: data.imdbID
+                })
+            } else {
+                // else this movie was just deleted
+                this.setState({
+                    deleted: true
+                })
+            }
         })
     }
 
@@ -79,9 +87,6 @@ export default class Movie extends Component {
         document.getElementById("movie-director").innerHTML = this.state.director;
         document.getElementById("movie-runtime").innerHTML = this.state.runtime;
         document.getElementById("modal-imdb").innerHTML = this.state.id;
-        
-        
-
 
         //Add listener for clicking out of modal
         if (modal) {

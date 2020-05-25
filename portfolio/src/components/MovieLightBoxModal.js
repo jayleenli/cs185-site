@@ -19,7 +19,15 @@ export default class MovieLightBoxModal extends Component {
         var ref = firebase.database().ref("movies/" + thisMovieID);
         console.log("deleting")
         //Also need to remove this from all lists.
-        //ref.remove();
+        ref.remove();
+        //Also close the modal
+        var modal = document.getElementById("movie-lightbox-modal");
+        if (modal) {
+            modal.style.display = "none";
+            //re enable scrolling
+            window.onscroll = function() {}; 
+        }
+        this.props.rerenderParentCallback();
     }
 
 

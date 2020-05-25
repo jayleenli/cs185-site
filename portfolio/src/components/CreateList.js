@@ -34,8 +34,10 @@ export default class CreateList extends Component {
             firebase.database().ref('movieLists/'+listId).set(toUpload)
             document.getElementById("smalltxt").innerHTML = "List Created!"
             setTimeout(function() {
-                document.getElementById("smalltxt").innerHTML = "Please enter a title for the new movie list."
-            }, 1500)
+                if (document.getElementById("smalltxt") != null){
+                    document.getElementById("smalltxt").innerHTML = "Please enter a title for the new movie list."
+                }
+            }, 1000)
         })
     }
 
