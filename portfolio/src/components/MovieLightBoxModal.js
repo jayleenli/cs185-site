@@ -4,7 +4,19 @@ import config from '../config';
 const firebase = require('firebase')
 
 export default class MovieLightBoxModal extends Component {
+    constructor(props) {
+        super(props);
+
+        this.setState({
+            allListNamesState: this.props.allListNames,
+            thisMovieLists: []
+        })
+    }
+
+
     showDropdown() {
+        console.log("clicked")
+        this.getThisMovieLists()
         var dropdown = document.getElementById("listDropdown");
         if (dropdown.style.display === "none" || dropdown.style.display === "") {
             dropdown.style.display = "block";
@@ -13,6 +25,7 @@ export default class MovieLightBoxModal extends Component {
             dropdown.style.display = "none";
         }
     }
+    
 
     deleteThisMovie() {
         let thisMovieID = document.getElementById("modal-imdb").innerHTML;
@@ -30,8 +43,65 @@ export default class MovieLightBoxModal extends Component {
         this.props.rerenderParentCallback(false);
     }
 
+    getThisMovieLists() {
+        let thisMovieID = document.getElementById("modal-imdb").innerHTML;
+        let query = firebase.database().ref('movieListPairs/'+thisMovieID)
+            query.once('value', snapshot => {
+                const data = snapshot.val()
+                if (data !== null) {
+                    const keys = Object.keys(data)
+                    console.log(keys)
+                    this.setState({ 
+                        thisMovieLists: keys
+                    })
+                }
+                else {
+                    console.log("null")
+                    this.setState({ 
+                        thisMovieLists: []
+                    })
+                }
+                console.log("loaded movie lists")
+            })
+    }
+    
+    addToList(listID) {
+        let thisMovieID = document.getElementById("modal-imdb").innerHTML;
+        console.log("add to list" +listID)
+        let toUpload = {}
+        toUpload = true
+        firebase.database().ref('listMoviePairs/'+listID+'/'+thisMovieID).set(toUpload)
+
+        //Also add to movielistpairs list
+        let toUpload2 = {}
+        toUpload2 = true
+        firebase.database().ref('movieListPairs/'+thisMovieID+'/'+listID).set(toUpload2)
+    }
 
     render() {
+        var listNamesRen = []
+        if (this.state) {
+            console.log("ren movie lists " + this.state.thisMovieLists)
+            var inLists = this.state.thisMovieLists
+            console.log("in lists " + inLists)
+            const allLists = this.props.allListNames
+            console.log("all lists ")
+            console.log(allLists)
+            var notInLists = []
+            console.log(notInLists)
+            for (let [key, value] of Object.entries(allLists)) {
+                if (!inLists.includes(key)) {
+                    // wanna add all the lists this movie is not in
+                    notInLists[key] = value
+                }
+            }
+            console.log(notInLists)
+
+            listNamesRen = notInLists.map((list, listID) => (
+                <a key={listID} onClick={() => {this.addToList(listID)}}>{list["title"]}</a>
+            ))
+        }
+
         return (
             <div id="movie-lightbox-modal" className="movie-modal">
                 <div className="movie-modal-content">
@@ -51,6 +121,7 @@ export default class MovieLightBoxModal extends Component {
                         <div className = "movie-modal-bottom">
                             <button onClick={()=>{this.showDropdown()}} className="add-to-list-btn">Add to list &#x25BC;</button>
                             <div id="listDropdown" className="add-to-list-cnt">
+                                {listNamesRen}
                             </div>
                             <button onClick={()=>{this.deleteThisMovie()}} className="delete-movie-btn">Delete Movie</button>
                         </div>

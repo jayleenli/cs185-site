@@ -95,6 +95,7 @@ export default class Movie extends Component {
             modal.addEventListener("click", e=>{
                 if(e.target !== e.currentTarget)
                     return;
+                document.getElementById("listDropdown").style.display = "none"
                 modal.style.display = "none";
                 //re enable scrolling
                 window.onscroll = function() {}; 
