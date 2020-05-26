@@ -31,8 +31,31 @@ export default class MovieLightBoxModal extends Component {
         let thisMovieID = document.getElementById("modal-imdb").innerHTML;
         var ref = firebase.database().ref("movies/" + thisMovieID);
         console.log("deleting")
-        //Also need to remove this from all lists.
+        
+        //remove from main movies list
         ref.remove();
+
+        //remove from movieListPairs
+        var ref2 = firebase.database().ref("movieListPairs/" + thisMovieID);
+        ref2.remove();
+
+        //remove from listMoviePairs
+        //Oof because need to iterate through all the pairs
+        const allLists = this.props.allListNames
+        for (let [key, value] of Object.entries(allLists)) {
+            var ref3 = firebase.database().ref("listMoviePairs/"+key)
+            ref3.once('value', snapshot => {
+                const data = snapshot.val()
+                if (data !== null && thisMovieID in data) {
+                    // in it, we wanna delete
+                    console.log("DELETE")
+                    var ref3 = firebase.database().ref("listMoviePairs/"+key+"/"+thisMovieID)
+                    ref3.remove();
+                    //console.log(data)
+                }
+            })
+        }
+
         //Also close the modal
         var modal = document.getElementById("movie-lightbox-modal");
         if (modal) {
