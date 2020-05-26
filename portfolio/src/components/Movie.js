@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-const axios = require('axios').default;
+import config from '../config';
+const firebase = require('firebase')
 
 export default class Movie extends Component {
     constructor() {
@@ -11,9 +12,41 @@ export default class Movie extends Component {
             ratingIMDb: 'None',
             ratingRt: 'None',
             plot: 'None',
-            runtime: 'None'
+            runtime: 'None',
+            id: 'None',
+            moveLists: []
         }
-        
+    }
+
+    componentDidMount() {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(config)
+        } 
+
+        //load data, dont care if it exists or not because make sure data inserted correctly and deleted correctly
+        let ref = firebase.database().ref('movies/'+this.props.movieID)
+        ref.on('value', snapshot => {
+            const data = snapshot.val()
+            if (data !== null ) {
+                var partOfLists = [];
+                if (data.movieLists !== null) {
+                    //part of some list
+                    partOfLists = data.movieLists
+                }
+                this.setState({
+                    title: data.Title,
+                    poster: data.Poster,
+                    director: data.Director,
+                    ratingIMDb: data.imdbRating,
+                    ratingRt: data.Ratings[1].Value,
+                    plot: data.Plot,
+                    runtime: data.Runtime,
+                    id: data.imdbID,
+                    movieLists: partOfLists
+                })
+            } 
+            // else this movie was just deleted
+        })
     }
 
     wasClicked = () => {
@@ -40,35 +73,19 @@ export default class Movie extends Component {
         document.getElementById("movie-plot").innerHTML = this.state.plot;
         document.getElementById("movie-director").innerHTML = this.state.director;
         document.getElementById("movie-runtime").innerHTML = this.state.runtime;
+        document.getElementById("modal-imdb").innerHTML = this.state.id;
 
         //Add listener for clicking out of modal
         if (modal) {
             modal.addEventListener("click", e=>{
                 if(e.target !== e.currentTarget)
                     return;
+                document.getElementById("listDropdown").style.display = "none"
                 modal.style.display = "none";
                 //re enable scrolling
                 window.onscroll = function() {}; 
             })
         }
-    }
-
-    componentDidMount () {
-        axios.get('https://www.omdbapi.com/?apikey=d92ce2fd&i=' + this.props.movieID)
-        .then((response) => 
-            this.setState({
-                title: response.data.Title,
-                poster: response.data.Poster,
-                director: response.data.Director,
-                ratingIMDb: response.data.imdbRating,
-                ratingRt: response.data.Ratings[1].Value,
-                plot: response.data.Plot,
-                runtime: response.data.Runtime
-            })
-        )
-        .catch(function (error) {
-            console.log(error);
-        })
     }
 
     render() {

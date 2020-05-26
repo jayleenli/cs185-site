@@ -5,6 +5,8 @@ import Animations from './Animations';
 import Games from './Games';
 import GuestBook from './GuestBook';
 import MovieList from './MovieList';
+import CreateList from './CreateList';
+import AddMovie from './AddMovie';
 
 export class Body extends Component {
     displayContent = () => {
@@ -19,8 +21,12 @@ export class Body extends Component {
             return <Games/>
         } else if (activeTab === 'GuestBook'){
             return <GuestBook/>
-        } else {
+        } else if (activeTab === 'Movie List') {
             return <MovieList/>
+        } else if (activeTab === 'Add Movie') {
+            return <AddMovie/>
+        } else  {
+            return <CreateList/>
         }
     }
     render() {

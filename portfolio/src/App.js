@@ -27,10 +27,14 @@ export class App extends Component {
         return "Videos I Animated"
     } else if (activeTab === 'Games') {
         return "Games"
-    } else if (activeTab === 'GuestBook') {
+    } else if (activeTab === 'Guest Book') {
         return "Guest Book"
-    } else {
+    } else if (activeTab === 'Movie List') {
       return "Movie List"
+    } else if (activeTab === 'Add Movie') {
+      return "Add Movie"
+    } else {
+      return "Create List"
     }
   }
 
@@ -41,30 +45,14 @@ export class App extends Component {
   
   render() {
     const pages = [
-      {
-        id: 1,
-        title: "Home"
-      },
-      {
-        id: 2,
-        title: "Photos"
-      },
-      {
-        id: 3,
-        title: "Animations"
-      },
-      {
-        id: 4,
-        title: "Games"
-      },
-      {
-        id: 5,
-        title: "GuestBook"
-      },
-      {
-        id: 6,
-        title: "Movie List"
-      }
+      { id: 1, title: "Home" },
+      { id: 2, title: "Photos" },
+      { id: 3, title: "Animations" },
+      { id: 4, title: "Games" },
+      { id: 5, title: "GuestBook" },
+      { id: 6, title: "Movie List" },
+      { id: 7, title: "Add Movie" },
+      { id: 8, title: "Create List" }
     ];
 
     return (

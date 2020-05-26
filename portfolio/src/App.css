@@ -500,7 +500,7 @@ html *
 }
 
 .movie-info-container {
-  padding-left: 8px;
+  padding: 0px 16px;
 }
 
 .movie-modal-ratings-container {
@@ -535,6 +535,240 @@ html *
   background-color: white;
   border-radius: 2px;
   padding: 2px 4px;
+}
+
+.movie-list-container {
+  margin-bottom: 16px;
+}
+
+.movie-list-top {
+  padding: 8px 24px;
+  height: 42px;
+}
+
+.movie-list-dropdown {
+  position: relative;
+  float:left;
+}
+
+.movie-list-dropdown-btn {
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  height: 42px;
+  border: none;
+  cursor: pointer;
+}
+
+.movie-list-dropdown-cnt {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.movie-list-dropdown-cnt a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.movie-list-dropdown-cnt a:hover {
+  color: black;
+  background-color: rgb(211, 211, 211);
+}
+
+
+.movie-list-dropdown-btn:hover {
+  background-color: #006bde;
+}
+
+.movie-list-load-more {
+  margin-top: 8px;
+  position: relative;
+  transition-duration: .4s;
+  border-radius: 8px;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #afa6ff;
+}
+
+.movie-list-load-more:hover {
+  background-color: #614fff; 
+  color: white;
+}
+.movie-list-search {
+  position: relative;
+  float:right;
+  height: 42px;
+}
+
+.movie-list-search-btn {
+  border: 2px solid #00e63d;
+  color: #00e63d;
+  background-color: white;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 38px;
+  margin-left: 8px;
+}
+
+.movie-list-search-btn:hover {
+  border: 2px solid #00ca36;
+  color: #00ca36;
+}
+
+.movie-list-search-box {
+  font-size: 16px;
+  height: 32px;
+  border-radius: 5px;
+  padding: 2px 6px;
+  border: 2px solid #ebebeb;
+  outline: none;
+}
+
+.movie-list-search-box:focus {
+  border: 2px solid #d6d6d6;
+}
+
+.movie-list-search-box:hover {
+  border: 2px solid #d6d6d6;
+}
+
+.add-create-body {
+  padding: 4px 20px;
+}
+
+.add-movie {
+  width: auto;
+}
+
+.text-input-box {
+  font-size: 16px;
+  height: 32px;
+  border-radius: 5px;
+  padding: 2px 6px;
+  border: 2px solid #ebebeb;
+  outline: none;
+  width: 300px;
+}
+
+.text-input-box:focus {
+  border: 2px solid #d6d6d6;
+  box-shadow: 3px 2px 7px #b1b1b1;
+}
+
+.text-input-box:hover {
+  border: 2px solid #d6d6d6;
+  box-shadow: 3px 2px 7px #b1b1b1;
+}
+
+.text-input-btn {
+  border: 2px solid #006bde;
+  color: white;
+  background-color: #006bde;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 38px;
+  margin-left: 8px;
+}
+
+.text-input-btn:hover {
+  background-color: #006bde;
+  box-shadow: 3px 2px 7px #b1b1b1;
+}
+
+.small-txt {
+  font-size: 12px;
+  color: rgb(155, 155, 155)
+}
+
+.movie-modal-bottom {
+  margin-top: 24px;
+}
+
+#modal-img {
+  margin: auto;
+}
+
+#modal-imdb {
+  display: none;
+}
+
+.add-to-list-btn {
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  height: 42px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-to-list-cnt {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.add-to-list-cnt a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.add-to-list-cnt a:hover {
+  color: black;
+  background-color: rgb(211, 211, 211);
+}
+
+.add-to-list-btn:hover {
+  background-color: #006bde;
+}
+
+.delete-movie-btn {
+  margin-left: 20px;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  height: 42px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-movie-btn:hover {
+  background-color: #de0000;
+}
+
+.small-txt-search {
+  display: none;
+  margin: 4px;
+  font-size: 12px;
+  color: rgb(155, 155, 155)
 }
 
 /* Responsive */
