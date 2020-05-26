@@ -14,7 +14,7 @@ export default class Movie extends Component {
             plot: 'None',
             runtime: 'None',
             id: 'None',
-            deleted: false
+            moveLists: []
         }
         
     }
@@ -29,6 +29,11 @@ export default class Movie extends Component {
         ref.on('value', snapshot => {
             const data = snapshot.val()
             if (data !== null ) {
+                var partOfLists = [];
+                if (data.movieLists !== null) {
+                    //part of some list
+                    partOfLists = data.movieLists
+                }
                 this.setState({
                     title: data.Title,
                     poster: data.Poster,
@@ -37,14 +42,11 @@ export default class Movie extends Component {
                     ratingRt: data.Ratings[1].Value,
                     plot: data.Plot,
                     runtime: data.Runtime,
-                    id: data.imdbID
+                    id: data.imdbID,
+                    movieLists: partOfLists
                 })
-            } else {
-                // else this movie was just deleted
-                this.setState({
-                    deleted: true
-                })
-            }
+            } 
+            // else this movie was just deleted
         })
     }
 

@@ -51,7 +51,6 @@ export default class MovieLightBoxModal extends Component {
                         <div className = "movie-modal-bottom">
                             <button onClick={()=>{this.showDropdown()}} className="add-to-list-btn">Add to list &#x25BC;</button>
                             <div id="listDropdown" className="add-to-list-cnt">
-
                             </div>
                             <button onClick={()=>{this.deleteThisMovie()}} className="delete-movie-btn">Delete Movie</button>
                         </div>

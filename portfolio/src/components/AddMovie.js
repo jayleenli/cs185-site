@@ -19,6 +19,8 @@ export default class AddMovie extends Component {
         .then(function (response) {
             //upload result to firebase, will overwrite things
             var toUpload = response.data
+            //toUpload["movieLists"] = []
+            //console.log(toUpload)
             firebase.database().ref('movies/'+response.data.imdbID).set(toUpload)
             console.log("uploaded to firebase")
             document.getElementById("smalltxt").innerHTML = "Movie Added!"
