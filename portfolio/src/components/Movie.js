@@ -16,7 +16,6 @@ export default class Movie extends Component {
             id: 'None',
             moveLists: []
         }
-        
     }
 
     componentDidMount() {
@@ -51,20 +50,6 @@ export default class Movie extends Component {
     }
 
     wasClicked = () => {
-        /*//Load the lists this movie is not in
-        let ref2 = firebase.database().ref('movieListPairs/' + this.props.movieID)
-        ref2.once('value', snapshot => {
-            const data = snapshot.val()
-            console.log(data)
-            
-            
-            //let result = inside.map(a => a.title);
-            console.log(result)
-            this.setState({
-                firebaseListNames: result
-            })
-        })*/
-
         //disable the scroll
         // Get the current page scroll position 
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
@@ -109,17 +94,3 @@ export default class Movie extends Component {
         )
     }
 }
-
-/*    getDropdownLists() {
-        const listNames = this.props.dropdownLists;
-        console.log("get dropdownlists")
-        //Need to check what lists this movie is not in though
-
-        console.log(listNames)
-        if (Object.keys(listNames).length != 0) {
-            const listNamesRen = listNames.map((list, index) => (
-                <a onClick={() => {this.changeList(index)}}>{list}</a>
-            ))
-            return listNamesRen
-        }
-    }*/

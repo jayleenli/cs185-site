@@ -23,7 +23,6 @@ export default class MovieList extends Component {
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
 
         this.changeActiveMovie = (movieName) => {
-            console.log("changed active state")
             this.setState ({
                 activeMovie: movieName,
                 movieClicked: true
@@ -35,9 +34,6 @@ export default class MovieList extends Component {
         console.log("component updated", this.state.numMovies)
         if (this.state.numMovies != null) {
             //check to see if need to have load more button shown or hidden
-            //console.log("HELLO")
-            //console.log(this.state.page*8)
-            //console.log(this.state.numMovies)
             if (this.state.page*8 >= this.state.numMovies) {
                 //don't need to show load more
                 document.getElementById("loadMore").style.display = 'none';
@@ -69,7 +65,6 @@ export default class MovieList extends Component {
         let ref = firebase.database().ref('movies').orderByKey().limitToFirst(8)
         ref.once('value', snapshot => {
             const data = snapshot.val()
-            console.log(data)
             
             const keys = Object.keys(data)
 
@@ -84,7 +79,6 @@ export default class MovieList extends Component {
         let ref2 = firebase.database().ref('movieLists')
         ref2.orderByChild('title').once('value', snapshot => {
             const data = snapshot.val()
-            console.log(data)
             
             //const inside = Object.values(data)
             const keys = Object.keys(data)
@@ -93,8 +87,6 @@ export default class MovieList extends Component {
             for(var x = 0; x < keys.length; x++) {
                 result[keys[x]] = data[keys[x]].title
             }
-            //let result = inside.map(a => a.title);
-            console.log(result)
             this.setState({
                 firebaseListNames: result,
                 allListNamesMap: data
@@ -124,7 +116,6 @@ export default class MovieList extends Component {
             let ref = firebase.database().ref('movies').orderByKey().limitToFirst(8)
             ref.once('value', snapshot => {
                 const data = snapshot.val()
-                console.log(data)
                 
                 const keys = Object.keys(data)
 
@@ -136,15 +127,12 @@ export default class MovieList extends Component {
             })
         }
         else {
-            console.log("in else of forced update")
+            //forced update for list, kinda reused code which is bad but it is working.
             let query = firebase.database().ref('listMoviePairs/'+this.state.currentList).orderByKey().limitToFirst(8)
             query.once('value', snapshot => {
                 const data = snapshot.val()
-                console.log("FORCED UPDATE SNAP")
-                console.log(data)
                 //If the list is empty
                 if (data === null) {
-                    console.log("IM HERE")
                     this.setState({
                         numMovies: 0,
                         firebaseAllMovieData: [],
@@ -152,10 +140,8 @@ export default class MovieList extends Component {
                         page: 1
                     })
                     document.getElementById("movie-list").innerHTML = "<center><p>This list is empty :O</p></center>"
-
                 }
                 else {
-                    console.log("OTHER HERE")
                     var innertext = document.getElementById("movie-list")
                     if (innertext.innerHTML === "<center><p>This list is empty :O</p></center>") {
                         innertext.innerHTML = null
@@ -179,7 +165,6 @@ export default class MovieList extends Component {
 
         }
         this.forceUpdate();
-        
     }
 
     showDropdown() {
@@ -194,8 +179,6 @@ export default class MovieList extends Component {
 
     getDropdownLists() {
         const listNames = this.state.firebaseListNames;
-        console.log("get dropdownlists")
-        console.log(listNames)
         if (Object.keys(listNames).length != 0) {
             const listNamesRen = listNames.map((list, index) => (
                 <a onClick={() => {this.changeList(index)}}>{list}</a>
@@ -207,7 +190,6 @@ export default class MovieList extends Component {
 
     changeList(listID) {
         //load and update data only first 8
-        //console.log("LISTID" + listID)
         document.getElementById("movieDropDown").style.display = 'none';
         const listNames = this.state.firebaseListNames;
 
@@ -216,7 +198,6 @@ export default class MovieList extends Component {
                 currentList: listID,
                 currentListName: 'All'
             })
-            //this.forceUpdate();
             this.rerenderParentCallback(true)
             //can do this because we were gonna run that same logic anyway
         }
@@ -286,7 +267,6 @@ export default class MovieList extends Component {
                 for (let [key, value] of Object.entries(data)) {
                     if (value["Title"].toLowerCase() === searchInput.toLowerCase()) {
                         found = true
-                        console.log("found" + key)
                         
                         this.setState({
                             searchedKey: key
@@ -316,23 +296,17 @@ export default class MovieList extends Component {
         }
         else {
             const movies = this.getAllMovieIDs();
-            console.log("MOVIES")
-            console.log(movies)
             
             const movieList = movies.map ((movie) => (
                 <Movie handleClick={this.changeActiveMovie.bind(this)} key={movie} movieID={movie}></Movie>
             ));
-            
             return movieList
         }
-
     }
 
     loadMore() {
-        console.log("load more clicked")
         var currPage = this.state.page
         currPage = currPage+1
-        console.log(currPage)
 
         //load more
         var numLimit = 9 //9 because it starts from last key 
@@ -344,7 +318,6 @@ export default class MovieList extends Component {
             let ref = firebase.database().ref('movies').orderByKey().limitToFirst(numLimit).startAt(start);
             ref.once('value', snapshot => {
                 const data = snapshot.val()
-                //console.log(data)
                 
                 const keys = Object.keys(data)
 
@@ -355,7 +328,6 @@ export default class MovieList extends Component {
                     }
                 }
 
-                //console.log(newFireBaseData)
                 this.setState({
                     firebaseAllMovieData: newFireBaseData,
                     lastKeyLoaded: keys[keys.length-1],
@@ -384,12 +356,9 @@ export default class MovieList extends Component {
                 })
             })
         }
-        
-
     }
 
     render() {
-
         return (
             <div className="movie-list-container">
                 <div className="movie-list-top"> 
@@ -405,7 +374,6 @@ export default class MovieList extends Component {
                         <p className="small-txt-search" id="search-small-txt">Not found.</p>
                     </div>
                     
-
                 </div>
                 <br/>
                 <div id="movie-list" className="movie-list">

@@ -48,7 +48,6 @@ export default class MovieLightBoxModal extends Component {
                 const data = snapshot.val()
                 if (data !== null && thisMovieID in data) {
                     // in it, we wanna delete
-                    console.log("DELETE")
                     var ref3 = firebase.database().ref("listMoviePairs/"+key+"/"+thisMovieID)
                     ref3.remove();
                     this.props.rerenderParentCallback(false);
@@ -64,13 +63,6 @@ export default class MovieLightBoxModal extends Component {
             //re enable scrolling
             window.onscroll = function() {}; 
         }
-
-        console.log("about to call rerender")
-        //this.props.rerenderParentCallback(false);
-    }
-
-    actualDeletion() {
-        
     }
 
     getThisMovieLists() {
@@ -91,41 +83,37 @@ export default class MovieLightBoxModal extends Component {
                         thisMovieLists: []
                     })
                 }
-                console.log("loaded movie lists")
             })
     }
     
     addToList(listID) {
         let thisMovieID = document.getElementById("modal-imdb").innerHTML;
-        console.log("add to list" +listID)
+
+        // add to movielistpairs list
+        let toUpload2 = {}
+        toUpload2 = true
+        firebase.database().ref('movieListPairs/'+thisMovieID+'/'+listID).set(toUpload2)
+
+        // add to listmoviepairs list
         let toUpload = {}
         toUpload = true
         firebase.database().ref('listMoviePairs/'+listID+'/'+thisMovieID).set(toUpload)
 
-        //Also add to movielistpairs list
-        let toUpload2 = {}
-        toUpload2 = true
-        firebase.database().ref('movieListPairs/'+thisMovieID+'/'+listID).set(toUpload2)
+        this.getThisMovieLists()
     }
 
     render() {
         var listNamesRen = []
         if (this.state) {
-            console.log("ren movie lists " + this.state.thisMovieLists)
             var inLists = this.state.thisMovieLists
-            console.log("in lists " + inLists)
             const allLists = this.props.allListNames
-            console.log("all lists ")
-            console.log(allLists)
             var notInLists = []
-            console.log(notInLists)
             for (let [key, value] of Object.entries(allLists)) {
                 if (!inLists.includes(key)) {
                     // wanna add all the lists this movie is not in
                     notInLists[key] = value
                 }
             }
-            console.log(notInLists)
 
             listNamesRen = notInLists.map((list, listID) => (
                 <a key={listID} onClick={() => {this.addToList(listID)}}>{list["title"]}</a>

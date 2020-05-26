@@ -6,7 +6,8 @@ export default class CreateList extends Component {
     constructor() {
         super();
         this.state = {
-            lastInsert: 0
+            lastInsert: 0,
+            firebaseListNames: []
         }
     }
 
@@ -14,31 +15,62 @@ export default class CreateList extends Component {
         if (!firebase.apps.length) {
             firebase.initializeApp(config)
         } 
+
+        //load list names
+        let ref2 = firebase.database().ref('movieLists')
+        ref2.orderByChild('title').once('value', snapshot => {
+            const data = snapshot.val()
+            const keys = Object.keys(data)
+            var result  = []
+
+            for(var x = 0; x < keys.length; x++) {
+                result[keys[x]] = data[keys[x]].title
+            }
+            this.setState({
+                firebaseListNames: result
+            })
+        })
     }
 
     createList () { 
         const inputData = document.getElementById("createList").value;
-        console.log(inputData);
+        var smoltxt = document.getElementById("smalltxt")
+        const listNames = this.state.firebaseListNames
 
-        // gets the latest entry
-        let ref = firebase.database().ref('movieLists')
-        ref.orderByKey().limitToLast(1).once('value', snapshot => {
-            const data = snapshot.val()
-            var listId = Object.keys(data)[0]
-            
-            listId = parseInt(listId) + 1
-            console.log(listId)
-            //upload result to firebase, will overwrite things
-            var toUpload = { "title": inputData}
+        //search listnames
+        var found = false
+        for (var x = 0; x < listNames.length; x++) {
+            if (listNames[x] === inputData) {
+                found = true
+            }
+        }
+        
+        if (found) {
+            smoltxt.innerHTML = "That list name has already been taken, please choose another one."
+            smoltxt.style.color = 'red'
 
-            firebase.database().ref('movieLists/'+listId).set(toUpload)
-            document.getElementById("smalltxt").innerHTML = "List Created!"
-            setTimeout(function() {
-                if (document.getElementById("smalltxt") != null){
-                    document.getElementById("smalltxt").innerHTML = "Please enter a title for the new movie list."
-                }
-            }, 1000)
-        })
+        } else {
+            smoltxt.style.color = 'rgb(155, 155, 155)'
+            // gets the latest entry
+            let ref = firebase.database().ref('movieLists')
+            ref.orderByKey().limitToLast(1).once('value', snapshot => {
+                const data = snapshot.val()
+                var listId = Object.keys(data)[0]
+                
+                listId = parseInt(listId) + 1
+                console.log(listId)
+                //upload result to firebase, will overwrite things
+                var toUpload = { "title": inputData}
+
+                firebase.database().ref('movieLists/'+listId).set(toUpload)
+                smoltxt.innerHTML = "List Created!"
+                setTimeout(function() {
+                    if (smoltxt != null){
+                        smoltxt.innerHTML = "Please enter a title for the new movie list."
+                    }
+                }, 1000)
+            })
+        }
     }
 
     render() {
