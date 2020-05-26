@@ -107,12 +107,17 @@ export default class MovieList extends Component {
         //Because something got deleted, need to rerun the movielist.
         
         if (this.state.currentList === "All" || forceAll === true) {
+            var innertext = document.getElementById("movie-list")
+            if (innertext.innerHTML === "<center><p>This list is empty :O</p></center>") {
+                innertext.innerHTML = null
+            }
             let ref1 = firebase.database().ref('movies')
             ref1.once('value', snapshot => {
                 //const data = snapshot.numChildren()
                 this.setState({
                     numMovies: snapshot.numChildren()
                 })
+                
             })
 
             //load and update data only first 8
@@ -131,7 +136,47 @@ export default class MovieList extends Component {
             })
         }
         else {
-            //need this for lsit?
+            console.log("in else of forced update")
+            let query = firebase.database().ref('listMoviePairs/'+this.state.currentList).orderByKey().limitToFirst(8)
+            query.once('value', snapshot => {
+                const data = snapshot.val()
+                console.log("FORCED UPDATE SNAP")
+                console.log(data)
+                //If the list is empty
+                if (data === null) {
+                    console.log("IM HERE")
+                    this.setState({
+                        numMovies: 0,
+                        firebaseAllMovieData: [],
+                        lastKeyLoaded: 'None',
+                        page: 1
+                    })
+                    document.getElementById("movie-list").innerHTML = "<center><p>This list is empty :O</p></center>"
+
+                }
+                else {
+                    console.log("OTHER HERE")
+                    var innertext = document.getElementById("movie-list")
+                    if (innertext.innerHTML === "<center><p>This list is empty :O</p></center>") {
+                        innertext.innerHTML = null
+                    }
+                    const keys = Object.keys(data)
+                
+                    //Also do a load for the load more button
+                    let ref1 = firebase.database().ref('listMoviePairs/'+this.state.currentList)
+                    ref1.once('value', snapshot => {
+                        this.setState({
+                            numMovies: snapshot.numChildren()
+                        })
+                    })
+                    this.setState({
+                        firebaseAllMovieData: keys,
+                        lastKeyLoaded: keys[keys.length-1],
+                        page: 1,
+                    })
+                }
+            })
+
         }
         this.forceUpdate();
         

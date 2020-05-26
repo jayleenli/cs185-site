@@ -51,6 +51,7 @@ export default class MovieLightBoxModal extends Component {
                     console.log("DELETE")
                     var ref3 = firebase.database().ref("listMoviePairs/"+key+"/"+thisMovieID)
                     ref3.remove();
+                    this.props.rerenderParentCallback(false);
                     //console.log(data)
                 }
             })
@@ -63,7 +64,13 @@ export default class MovieLightBoxModal extends Component {
             //re enable scrolling
             window.onscroll = function() {}; 
         }
-        this.props.rerenderParentCallback(false);
+
+        console.log("about to call rerender")
+        //this.props.rerenderParentCallback(false);
+    }
+
+    actualDeletion() {
+        
     }
 
     getThisMovieLists() {
