@@ -63,6 +63,7 @@ export default class MovieLightBoxModal extends Component {
             //re enable scrolling
             window.onscroll = function() {}; 
         }
+        this.props.rerenderParentCallback(false);
     }
 
     getThisMovieLists() {
