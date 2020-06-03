@@ -120,22 +120,18 @@ export default class Graph extends Component {
                 defs.append('pattern')
                     .attr('id', 'img_'+node.id)
                     .attr('patternUnits', 'objectBoundingBox')
-                    .attr('width', 2)
-                    .attr('height', 2)
+                    .attr('width', 1)
+                    .attr('height', 1)
                 .append('image')
                     .attr('xlink:href', node.poster)
-                    .attr("width", 200)
-                    .attr("height", 200)
-                    .attr("x", node.cx)
-                    .attr("y", node.cy);
+                    .attr("width", 300)
+                    .attr("height", 300)
+                    .attr("x", -50)
+                    .attr("y", 0);
 
                 return "url(#img_" + node.id+ ")"
             }
             return d3.color("steelblue")
-        }
-
-        const hoverText = (node) => {
-            return node.name
         }
 	
         var tooltip = d3.select("body")
@@ -159,7 +155,6 @@ export default class Graph extends Component {
             .style("opacity", 1)
         }
         var mousemove = function(d) {
-            console.log(d3.mouse(this))
             tooltip
             .html(d.name) 
             .style("left", (d3.mouse(this)[0]-50) + "px")
