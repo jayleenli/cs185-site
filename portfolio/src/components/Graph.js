@@ -70,9 +70,9 @@ export default class Graph extends Component {
                 source: 1,
                 target: 0
             }]
-            console.log("trying to render")
-            console.log(this.state.movieNodes)
-            console.log(this.state.linkNodes)
+            //console.log("trying to render")
+            //console.log(this.state.movieNodes)
+            //console.log(this.state.linkNodes)
             svgGraphElem.appendChild(this.chart(this.state.movieNodes, this.state.linkNodes));
         }
     }
@@ -105,8 +105,6 @@ export default class Graph extends Component {
             .join("line")
             .attr("stroke-width", 2)
 
-
-
         //Define images for svg circles
         var defs = svg_graph.append("defs")
 
@@ -116,6 +114,7 @@ export default class Graph extends Component {
             }
             return 20;
         }
+
         const nodePoster = (node) => {
             if (node.group == "movie") {
                 defs.append('pattern')
@@ -135,6 +134,46 @@ export default class Graph extends Component {
             return d3.color("steelblue")
         }
 
+        const hoverText = (node) => {
+            return node.name
+        }
+	
+        var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("opacity", 0)
+        .style("background-color", "#fdffd9")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+        .text("a simple tooltip");
+        
+        var mouseover = function(d) {
+            console.log("mouse over")
+            tooltip
+            .style("opacity", 1)
+            d3.select(this)
+            .style("stroke", "black")
+            .style("opacity", 1)
+        }
+        var mousemove = function(d) {
+            console.log(d3.mouse(this))
+            tooltip
+            .html(d.name) 
+            .style("left", (d3.mouse(this)[0]-50) + "px")
+            .style("top", (d3.mouse(this)[1]+100) + "px")
+        }
+        var mouseleave = function(d) {
+            console.log("mouse leave")
+            tooltip
+            .style("opacity", 0)
+            d3.select(this)
+            .style("stroke", "none")
+        }
+
+      
         const node = svg_graph.append("g")
             .attr("stroke", "#fff")
             .attr("stroke-width", 1.5)
@@ -143,7 +182,11 @@ export default class Graph extends Component {
             .join("circle")
             .attr("r", radius)
             .attr("fill", nodePoster)
-            .call(this.drag(simulation));
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
+            .call(this.drag(simulation))
+            
         
         simulation.on("tick", () => {
             link   
@@ -156,6 +199,8 @@ export default class Graph extends Component {
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
         });
+
+        
         
     return svg_graph.node();
     }
@@ -222,17 +267,31 @@ export default class Graph extends Component {
                 
                 //Create nodes for the actors Array
                 for (var j = 0; j < actorsArray.length; j++) {
-                    var actorNode = {}
-                    
-                    actorNode["name"] = actorsArray[j];
-                    actorNode["group"] = "actor";
-                    nodes.push(actorNode)
+                    //Check if this actor node already exists
+                    var foundActor = false
+                    for (var x = 0; x < nodes.length; x++) {
+                        if(nodes[x]["group"] === "actor" && nodes[x]["name"] === actorsArray[j]) {
+                            var actorLink = {}
+                            actorLink["source"] = x;
+                            actorLink["target"] = movieindex;
 
-                    var actorLink = {}
-                    actorLink["source"] = nodes.length-1;
-                    actorLink["target"] = movieindex;
+                            links.push(actorLink)
+                            foundActor = true
+                        }
+                    }
+                    if (!foundActor) {
+                        var actorNode = {}
+                        
+                        actorNode["name"] = actorsArray[j];
+                        actorNode["group"] = "actor";
+                        nodes.push(actorNode)
 
-                    links.push(actorLink)
+                        var actorLink = {}
+                        actorLink["source"] = nodes.length-1;
+                        actorLink["target"] = movieindex;
+
+                        links.push(actorLink)
+                    }
                 }
             }
         }
