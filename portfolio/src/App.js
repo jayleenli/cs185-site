@@ -33,8 +33,10 @@ export class App extends Component {
       return "Movie List"
     } else if (activeTab === 'Add Movie') {
       return "Add Movie"
-    } else {
+    } else if (activeTab === 'Create List'){
       return "Create List"
+    } else {
+      return "Graph"
     }
   }
 
@@ -52,7 +54,8 @@ export class App extends Component {
       { id: 5, title: "GuestBook" },
       { id: 6, title: "Movie List" },
       { id: 7, title: "Add Movie" },
-      { id: 8, title: "Create List" }
+      { id: 8, title: "Create List" },
+      { id: 9, title: "Graph" }
     ];
 
     return (
