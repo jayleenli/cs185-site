@@ -9,6 +9,7 @@ export default class Graph extends Component {
         super();
         this.state = {
             firebaseGraphData: {},
+            moviesToRender: [],
             movieNodes: {},
             linkNodes: {}
         }
@@ -19,28 +20,28 @@ export default class Graph extends Component {
             firebase.initializeApp(config)
         } 
 
-        //load movies
-        let ref = firebase.database().ref('movies').limitToFirst(2)
-        ref.once('value', snapshot => {
-            const data = snapshot.val()
+        let ref2 = firebase.database().ref('graphViz')
+        ref2.once('value', snapshot => {
+            var data = snapshot.val()
 
-            console.log(data)
-            //const movieKeys = Object.keys(data)
-            //let ref = firebase.database().ref('graphViz')limitToFirst(2)
-            //ref.once('value', snapshot => {
-
-            this.processData(data);
+            const movieKeys = Object.keys(data);
+            console.log(movieKeys)
+            
             this.setState({
-                firebaseGraphData: data
+                moviesToRender: movieKeys
+            }) 
+
+            //load movies
+            let ref = firebase.database().ref('movies/')
+            ref.on('value', snapshot => {
+                var movieInfo = snapshot.val()
+                this.processData(movieInfo)
             })
             
-            const svgGraphElem = document.getElementById("svgMovieGraph");
-            const links = [{
-                source: 1,
-                target: 0
-            }]
-            svgGraphElem.appendChild(this.chart(this.state.movieNodes, this.state.linkNodes));
-        
+            /*this.processData(data);
+            this.setState({
+                firebaseGraphData: data
+            })*/
             
         })
 
@@ -60,6 +61,20 @@ export default class Graph extends Component {
         svgGraphElem.appendChild(this.chart(dummy_nodes, links));
         */
         
+    }
+
+    componentDidUpdate() {
+        const svgGraphElem = document.getElementById("svgMovieGraph");
+        if (this.state.moviesToRender.length !== 0 && Object.keys(this.state.movieNodes).length !== 0 && Object.keys(this.state.linkNodes).length !== 0) {
+            const links = [{
+                source: 1,
+                target: 0
+            }]
+            console.log("trying to render")
+            console.log(this.state.movieNodes)
+            console.log(this.state.linkNodes)
+            svgGraphElem.appendChild(this.chart(this.state.movieNodes, this.state.linkNodes));
+        }
     }
 
     chart(nodes, links) {
@@ -181,41 +196,47 @@ export default class Graph extends Component {
     }
 
     processData(data) {
+        var keysWeWant = this.state.moviesToRender
         var oldData = data;
         var nodes = [];
         var links = [];
         var movieindex = 0;
         const keys = Object.keys(data);
         //Only need actors, movie poster, movie name, movie id
+        console.log("keys we want")
+        console.log(keysWeWant);
         for (var i = 0; i < keys.length; i++) {
-            const movieID = keys[i];
-            var movieNode = {}
-            var movieActors =  oldData[movieID]["Actors"]
-            var actorsArray = this.processActorsString(movieActors);
+            if (keysWeWant.indexOf(keys[i]) !== -1) {          
+                const movieID = keys[i];
+                var movieNode = {}
+                var movieActors =  oldData[movieID]["Actors"]
+                var actorsArray = this.processActorsString(movieActors);
 
-            movieNode["poster"] = oldData[movieID]["Poster"];
-            movieNode["name"] = oldData[movieID]["Title"];
-            movieNode["id"] = movieID;
-            movieNode["group"] = "movie"; //"movie"
-            movieNode["numActors"] = actorsArray.length;
-            nodes.push(movieNode)
-            movieindex = nodes.length-1;
-            
-            //Create nodes for the actors Array
-            for (var j = 0; j < actorsArray.length; j++) {
-                var actorNode = {}
+                movieNode["poster"] = oldData[movieID]["Poster"];
+                movieNode["name"] = oldData[movieID]["Title"];
+                movieNode["id"] = movieID;
+                movieNode["group"] = "movie"; //"movie"
+                movieNode["numActors"] = actorsArray.length;
+                nodes.push(movieNode)
+                movieindex = nodes.length-1;
                 
-                actorNode["name"] = actorsArray[j];
-                actorNode["group"] = "actor";
-                nodes.push(actorNode)
+                //Create nodes for the actors Array
+                for (var j = 0; j < actorsArray.length; j++) {
+                    var actorNode = {}
+                    
+                    actorNode["name"] = actorsArray[j];
+                    actorNode["group"] = "actor";
+                    nodes.push(actorNode)
 
-                var actorLink = {}
-                actorLink["source"] = nodes.length-1;
-                actorLink["target"] = movieindex;
+                    var actorLink = {}
+                    actorLink["source"] = nodes.length-1;
+                    actorLink["target"] = movieindex;
 
-                links.push(actorLink)
+                    links.push(actorLink)
+                }
             }
         }
+        
         this.setState({
             movieNodes: nodes,
             linkNodes: links
