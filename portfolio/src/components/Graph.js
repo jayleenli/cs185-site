@@ -8,7 +8,6 @@ export default class Graph extends Component {
     constructor() {
         super();
         this.state = {
-            firebaseGraphData: {},
             moviesToRender: [],
             movieNodes: {},
             linkNodes: {}
@@ -37,30 +36,7 @@ export default class Graph extends Component {
                 var movieInfo = snapshot.val()
                 this.processData(movieInfo)
             })
-            
-            /*this.processData(data);
-            this.setState({
-                firebaseGraphData: data
-            })*/
-            
         })
-
-        /*const links = [{
-            source: 1,
-            target: 0
-        }]
-        const dummy_nodes = [
-            {
-                name:"hi"
-            },
-            {
-                name:"hi2"
-            }
-        ]
-        const svgGraphElem = document.getElementById("svgMovieGraph");
-        svgGraphElem.appendChild(this.chart(dummy_nodes, links));
-        */
-        
     }
 
     componentDidUpdate() {
@@ -70,9 +46,6 @@ export default class Graph extends Component {
                 source: 1,
                 target: 0
             }]
-            //console.log("trying to render")
-            //console.log(this.state.movieNodes)
-            //console.log(this.state.linkNodes)
             svgGraphElem.appendChild(this.chart(this.state.movieNodes, this.state.linkNodes));
         }
     }
@@ -112,7 +85,7 @@ export default class Graph extends Component {
             if(node.group == "movie") {
                 return 100;
             }
-            return 20;
+            return 45;
         }
 
         const nodePoster = (node) => {
@@ -165,10 +138,9 @@ export default class Graph extends Component {
             tooltip
             .style("opacity", 0)
             d3.select(this)
-            .style("stroke", "none")
+            .style("stroke", "white")
         }
 
-      
         const node = svg_graph.append("g")
             .attr("stroke", "#fff")
             .attr("stroke-width", 1.5)
@@ -194,18 +166,17 @@ export default class Graph extends Component {
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
         });
-
-        
-        
     return svg_graph.node();
     }
+    
     //Drag code from section
     drag = (simulation) => {
         function dragStarted(d) {
             //check if active, don't wanna trigger it multiple times
             //alphaTarget set how much effect drag should have
             if(!d3.event.active) {
-                simulation.alphaTarget(0,3).restart();
+                simulation.alpha(.5);
+                simulation.alphaTarget(0.1).restart();
                 console.log("restart")
             }
             d.fx = d.x;
@@ -222,7 +193,7 @@ export default class Graph extends Component {
         function dragEnded(d) {
             //undo the force applied previously, so when the other node pulls it, it will be pulled back
             if(!d3.event.active) {
-                simulation.alphaTarget(0);
+                simulation.alphaTarget(0.0001);
                 console.log("end")
             }
             d.fx = null;
