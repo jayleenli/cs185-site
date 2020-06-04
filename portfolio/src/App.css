@@ -771,6 +771,10 @@ html *
   color: rgb(155, 155, 155)
 }
 
+#svgMovieGraph {
+  width: 100%;
+  height: 100%;
+}
 /* Responsive */
 @media only screen and (max-width: 800px) {
   #main-body {

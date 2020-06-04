@@ -13,20 +13,33 @@ export default class AddMovie extends Component {
     addMovieEvent () { 
         const inputData = document.getElementById("addMovieBox").value;
         console.log(inputData);
+        
 
         //Do axios req
         axios.get('https://www.omdbapi.com/?apikey=d92ce2fd&i=' + inputData)
         .then(function (response) {
-            //upload result to firebase, will overwrite things
-            var toUpload = response.data
-            firebase.database().ref('movies/'+response.data.imdbID).set(toUpload)
-            console.log("uploaded to firebase")
-            document.getElementById("smalltxt").innerHTML = "Movie Added!"
-            setTimeout(function() {
-                if (document.getElementById("smalltxt") != null){
-                    document.getElementById("smalltxt").innerHTML = "Please give the imdbID of the movie from the imdb site."
-                }
-            }, 1000)
+            console.log(response)
+            console.log(response.data.Response)
+            if (response.data.Response === "False"){
+                document.getElementById("smalltxt").innerHTML = "Movie imdb invalid, please try again"
+                setTimeout(function() {
+                    if (document.getElementById("smalltxt") != null){
+                        document.getElementById("smalltxt").innerHTML = "Please give the imdbID of the movie from the imdb site."
+                    }
+                }, 1000)
+            }
+            else {
+                //upload result to firebase, will overwrite things
+                var toUpload = response.data
+                firebase.database().ref('movies/'+response.data.imdbID).set(toUpload)
+                console.log("uploaded to firebase")
+                document.getElementById("smalltxt").innerHTML = "Movie Added!"
+                setTimeout(function() {
+                    if (document.getElementById("smalltxt") != null){
+                        document.getElementById("smalltxt").innerHTML = "Please give the imdbID of the movie from the imdb site."
+                    }
+                }, 1000)
+            }
         })
         .catch(function (error) {
             console.log(error);
